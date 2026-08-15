@@ -1,0 +1,692 @@
+[
+  {
+    "idPortoMG": 1,
+    "nome": "A Coruña",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 1,
+      "idPortoRef": 1,
+      "latitude": 43.35,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:38",
+          "idPorto": 1,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:48",
+          "idPorto": 1,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:45",
+          "idPorto": 1,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.1,
+          "data": "2026-08-15T00:00:00",
+          "hora": "19:05",
+          "idPorto": 1,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.383333,
+      "nomePorto": "A Coruña"
+    }
+  },
+  {
+    "idPortoMG": 2,
+    "nome": "Xixón",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 2,
+      "idPortoRef": 2,
+      "latitude": 43.55,
+      "listaMareas": [
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:47",
+          "idPorto": 2,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:58",
+          "idPorto": 2,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.6,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:55",
+          "idPorto": 2,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "19:15",
+          "idPorto": 2,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -5.68333,
+      "nomePorto": "Xixón"
+    }
+  },
+  {
+    "idPortoMG": 3,
+    "nome": "Vigo",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 3,
+      "idPortoRef": 3,
+      "latitude": 42.233334,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:17",
+          "idPorto": 3,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.7,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:26",
+          "idPorto": 3,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:24",
+          "idPorto": 3,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:43",
+          "idPorto": 3,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.716667,
+      "nomePorto": "Vigo"
+    }
+  },
+  {
+    "idPortoMG": 4,
+    "nome": "Vilagarcía",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 4,
+      "idPortoRef": 4,
+      "latitude": 42.583332,
+      "listaMareas": [
+        {
+          "altura": 0.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:22",
+          "idPorto": 4,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.7,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:30",
+          "idPorto": 4,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:28",
+          "idPorto": 4,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:47",
+          "idPorto": 4,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.766667,
+      "nomePorto": "Vilagarcía"
+    }
+  },
+  {
+    "idPortoMG": 6,
+    "nome": "Ría de Foz",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 6,
+      "idPortoRef": 1,
+      "latitude": 43.566666,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:41",
+          "idPorto": 6,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.1,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:52",
+          "idPorto": 6,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:51",
+          "idPorto": 6,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "19:11",
+          "idPorto": 6,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -7.233333,
+      "nomePorto": "Ría de Foz"
+    }
+  },
+  {
+    "idPortoMG": 7,
+    "nome": "Corcubión",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 7,
+      "idPortoRef": 4,
+      "latitude": 42.95,
+      "listaMareas": [
+        {
+          "altura": 0.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:28",
+          "idPorto": 7,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.8,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:39",
+          "idPorto": 7,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:33",
+          "idPorto": 7,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:53",
+          "idPorto": 7,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -9.2,
+      "nomePorto": "Corcubión"
+    }
+  },
+  {
+    "idPortoMG": 8,
+    "nome": "Ría de Camariñas",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 8,
+      "idPortoRef": 4,
+      "latitude": 43.13333,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:28",
+          "idPorto": 8,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.8,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:39",
+          "idPorto": 8,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:35",
+          "idPorto": 8,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:55",
+          "idPorto": 8,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -9.183333,
+      "nomePorto": "Ría de Camariñas"
+    }
+  },
+  {
+    "idPortoMG": 9,
+    "nome": "Ría de Corme",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 9,
+      "idPortoRef": 4,
+      "latitude": 43.233334,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:32",
+          "idPorto": 9,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.8,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:41",
+          "idPorto": 9,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:38",
+          "idPorto": 9,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:58",
+          "idPorto": 9,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -9,
+      "nomePorto": "Ría de Corme"
+    }
+  },
+  {
+    "idPortoMG": 10,
+    "nome": "A Guarda",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 10,
+      "idPortoRef": 10,
+      "latitude": 41.9,
+      "listaMareas": [
+        {
+          "altura": 0.2,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:23",
+          "idPorto": 10,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:29",
+          "idPorto": 10,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:30",
+          "idPorto": 10,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.6,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:43",
+          "idPorto": 10,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.883333,
+      "nomePorto": "A Guarda"
+    }
+  },
+  {
+    "idPortoMG": 11,
+    "nome": "Ribeira",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 11,
+      "idPortoRef": 4,
+      "latitude": 42.55,
+      "listaMareas": [
+        {
+          "altura": 0.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:26",
+          "idPorto": 11,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.7,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:33",
+          "idPorto": 11,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:31",
+          "idPorto": 11,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:51",
+          "idPorto": 11,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.983333,
+      "nomePorto": "Ribeira"
+    }
+  },
+  {
+    "idPortoMG": 12,
+    "nome": "Muros",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 12,
+      "idPortoRef": 4,
+      "latitude": 42.766666,
+      "listaMareas": [
+        {
+          "altura": 0.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:24",
+          "idPorto": 12,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.8,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:35",
+          "idPorto": 12,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:31",
+          "idPorto": 12,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:51",
+          "idPorto": 12,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -9.05,
+      "nomePorto": "Muros"
+    }
+  },
+  {
+    "idPortoMG": 13,
+    "nome": "Pontevedra",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 13,
+      "idPortoRef": 4,
+      "latitude": 42.433334,
+      "listaMareas": [
+        {
+          "altura": 0.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:19",
+          "idPorto": 13,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.7,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:28",
+          "idPorto": 13,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:24",
+          "idPorto": 13,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:45",
+          "idPorto": 13,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.65,
+      "nomePorto": "Pontevedra"
+    }
+  },
+  {
+    "idPortoMG": 14,
+    "nome": "Ferrol Porto Exterior",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 14,
+      "idPortoRef": 14,
+      "latitude": 43.462776,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:38",
+          "idPorto": 14,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:47",
+          "idPorto": 14,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:45",
+          "idPorto": 14,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.1,
+          "data": "2026-08-15T00:00:00",
+          "hora": "19:05",
+          "idPorto": 14,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.325556,
+      "nomePorto": "Ferrol Porto Exterior"
+    }
+  },
+  {
+    "idPortoMG": 15,
+    "nome": "Marín",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 15,
+      "idPortoRef": 15,
+      "latitude": 42.406113,
+      "listaMareas": [
+        {
+          "altura": 0.3,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:19",
+          "idPorto": 15,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.6,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:28",
+          "idPorto": 15,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:26",
+          "idPorto": 15,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.8,
+          "data": "2026-08-15T00:00:00",
+          "hora": "18:45",
+          "idPorto": 15,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.691111,
+      "nomePorto": "Marín"
+    }
+  },
+  {
+    "idPortoMG": 16,
+    "nome": "Ferrol",
+    "raw": {
+      "data": "2026-08-15T00:00:00",
+      "idPorto": 16,
+      "idPortoRef": 16,
+      "latitude": 43.476112,
+      "listaMareas": [
+        {
+          "altura": 0.4,
+          "data": "2026-08-15T00:00:00",
+          "hora": "00:40",
+          "idPorto": 16,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 3.9,
+          "data": "2026-08-15T00:00:00",
+          "hora": "06:50",
+          "idPorto": 16,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        },
+        {
+          "altura": 0.5,
+          "data": "2026-08-15T00:00:00",
+          "hora": "12:48",
+          "idPorto": 16,
+          "idTipoMarea": 0,
+          "tipoMarea": "Baixamar"
+        },
+        {
+          "altura": 4.2,
+          "data": "2026-08-15T00:00:00",
+          "hora": "19:07",
+          "idPorto": 16,
+          "idTipoMarea": 1,
+          "tipoMarea": "Preamar"
+        }
+      ],
+      "lonxitude": -8.248333,
+      "nomePorto": "Ferrol"
+    }
+  }
+]
