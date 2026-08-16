@@ -1,0 +1,6 @@
+export enum TidePhase {
+  PREAMAR = 'PREAMAR',
+  BAIXAMAR = 'BAIXAMAR',
+  ENCHENTE = 'ENCHENTE',
+  MINGUANTE = 'MINGUANTE',
+}

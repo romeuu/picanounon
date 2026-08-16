@@ -1,0 +1,5 @@
+export enum SafetyLevel {
+  SEGURO = 'SEGURO',
+  PRECAUCION = 'PRECAUCION',
+  PERIGO_EXTREMO = 'PERIGO_EXTREMO',
+}
