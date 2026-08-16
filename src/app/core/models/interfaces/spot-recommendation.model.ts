@@ -1,14 +1,9 @@
 import { SafetyLevel } from '../enums/safety-level.enum';
-import { TargetSpecies } from '../enums/species.enum';
-import { Port } from '../port';
 
 export interface SpotRecommendation {
-  port: Port;
-  species: TargetSpecies;
-  score: number;
+  score: number; // 0 a 100
   safety: SafetyLevel;
-  waveEnergy: number;
+  waveEnergyKw: number; // kW/m lineais de costa
+  safetyPenalty: number; // Factor multiplicador (0.0 a 1.0)
   verdict: string;
-  pros: string[];
-  cons: string[];
 }
