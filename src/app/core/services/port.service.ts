@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { normalizeText } from '../../shared/utils/text-utils';
 import { PORTS_DATA } from '../data/ports.data';
 import { Zone } from '../models/enums/zone.enum';
-import { Port } from '../models/port';
+import { Port } from '../models/interfaces/port';
 
 @Injectable({
   providedIn: 'root',

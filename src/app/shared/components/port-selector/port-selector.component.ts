@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Port } from '../../../core/models/port';
+import { Port } from '../../../core/models/interfaces/port';
 import { PortService } from '../../../core/services/port.service';
 
 @Component({

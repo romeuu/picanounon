@@ -1,4 +1,4 @@
-import { Port } from '../models/port';
+import { Port } from '../models/interfaces/port';
 
 export const PORTS_DATA: Port[] = [
   {

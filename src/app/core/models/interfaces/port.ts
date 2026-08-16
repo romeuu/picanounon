@@ -1,4 +1,4 @@
-import { Zone } from './enums/zone.enum';
+import { Zone } from '../enums/zone.enum';
 
 export interface Port {
   id: number;
