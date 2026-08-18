@@ -79,7 +79,7 @@ export class ScoringService {
 
         // 2. Penalización nocturna estrita (caza visual)
         if (!conditions.isDaylight) {
-          score -= 40; // De noite a agulla non ten actividade
+          score -= 60; // De noite a agulla non ten actividade
         } else if (!conditions.isCrepuscular) {
           score += 15; // Pleno sol é o seu pico
         }

@@ -23,14 +23,14 @@ export class MarineWeatherService {
       .set('longitude', lng.toString())
       .set('hourly', 'wave_height,wave_period')
       .set('timezone', 'Europe/Madrid')
-      .set('forecast_days', '1');
+      .set('forecast_days', '7');
 
     const weatherParams = new HttpParams()
       .set('latitude', lat.toString())
       .set('longitude', lng.toString())
       .set('hourly', 'wind_speed_10m,is_day')
       .set('timezone', 'Europe/Madrid')
-      .set('forecast_days', '1');
+      .set('forecast_days', '7');
 
     return forkJoin({
       marine: this.http.get<any>(this.MARINE_URL, { params: marineParams }),
