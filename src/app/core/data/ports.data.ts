@@ -1,8 +1,12 @@
-import { Port } from '../models/port';
+import { Port } from '../models/interfaces/port';
 
 export const PORTS_DATA: Port[] = [
+  // ==========================================
+  // RÍAS BAIXAS (idZonaMG: 5)
+  // ==========================================
   {
     id: 10,
+    idZonaMG: 5,
     alias: 'A Guarda',
     name: 'A Guarda',
     zone: 'Rías Baixas',
@@ -11,6 +15,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 3,
+    idZonaMG: 5,
     alias: 'Baiona',
     name: 'Baiona',
     zone: 'Rías Baixas',
@@ -19,6 +24,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 3,
+    idZonaMG: 5,
     alias: 'Bouzas / Berbés',
     name: 'Vigo (Bouzas / Berbés)',
     zone: 'Rías Baixas',
@@ -27,6 +33,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 3,
+    idZonaMG: 5,
     alias: 'Cangas',
     name: 'Cangas do Morrazo',
     zone: 'Rías Baixas',
@@ -35,6 +42,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 3,
+    idZonaMG: 5,
     alias: 'Moaña',
     name: 'Moaña',
     zone: 'Rías Baixas',
@@ -43,6 +51,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 15,
+    idZonaMG: 5,
     alias: 'Bueu',
     name: 'Bueu',
     zone: 'Rías Baixas',
@@ -51,6 +60,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 3,
+    idZonaMG: 5,
     alias: 'Aldán',
     name: 'Aldán',
     zone: 'Rías Baixas',
@@ -59,6 +69,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 15,
+    idZonaMG: 5,
     alias: 'Marín',
     name: 'Marín',
     zone: 'Rías Baixas',
@@ -67,6 +78,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 13,
+    idZonaMG: 5,
     alias: 'As Corbaceiras',
     name: 'Pontevedra (As Corbaceiras)',
     zone: 'Rías Baixas',
@@ -75,6 +87,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 15,
+    idZonaMG: 5,
     alias: 'Combarro',
     name: 'Combarro',
     zone: 'Rías Baixas',
@@ -83,6 +96,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 15,
+    idZonaMG: 5,
     alias: 'Sanxenxo',
     name: 'Sanxenxo',
     zone: 'Rías Baixas',
@@ -91,6 +105,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 15,
+    idZonaMG: 5,
     alias: 'Portonovo',
     name: 'Portonovo',
     zone: 'Rías Baixas',
@@ -99,14 +114,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
-    alias: 'O Grove',
-    name: 'O Grove',
-    zone: 'Rías Baixas',
-    lat: 42.4972,
-    lng: -8.8617,
-  },
-  {
-    id: 4,
+    idZonaMG: 5,
     alias: 'Pedras Negras',
     name: 'Pedras Negras (San Vicente)',
     zone: 'Rías Baixas',
@@ -115,6 +123,16 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
+    idZonaMG: 5,
+    alias: 'O Grove',
+    name: 'O Grove',
+    zone: 'Rías Baixas',
+    lat: 42.4972,
+    lng: -8.8617,
+  },
+  {
+    id: 4,
+    idZonaMG: 5,
     alias: 'Tragove',
     name: 'Cambados (Tragove)',
     zone: 'Rías Baixas',
@@ -123,6 +141,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
+    idZonaMG: 5,
     alias: 'O Xufre',
     name: 'A Illa de Arousa (O Xufre)',
     zone: 'Rías Baixas',
@@ -131,6 +150,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
+    idZonaMG: 5,
     alias: 'Vilanova',
     name: 'Vilanova de Arousa',
     zone: 'Rías Baixas',
@@ -139,6 +159,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
+    idZonaMG: 5,
     alias: 'Vilagarcía',
     name: 'Vilagarcía de Arousa',
     zone: 'Rías Baixas',
@@ -147,6 +168,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
+    idZonaMG: 5,
     alias: 'Carril',
     name: 'Carril',
     zone: 'Rías Baixas',
@@ -155,6 +177,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 4,
+    idZonaMG: 5,
     alias: 'Rianxo',
     name: 'Rianxo',
     zone: 'Rías Baixas',
@@ -163,6 +186,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 11,
+    idZonaMG: 5,
     alias: 'A Pobra',
     name: 'A Pobra do Caramiñal',
     zone: 'Rías Baixas',
@@ -171,6 +195,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 11,
+    idZonaMG: 5,
     alias: 'Ribeira',
     name: 'Ribeira',
     zone: 'Rías Baixas',
@@ -179,6 +204,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 11,
+    idZonaMG: 5,
     alias: 'Aguiño',
     name: 'Aguiño',
     zone: 'Rías Baixas',
@@ -187,14 +213,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 12,
-    alias: 'Portosín',
-    name: 'Portosín',
-    zone: 'Rías Baixas',
-    lat: 42.76,
-    lng: -8.9483,
-  },
-  {
-    id: 12,
+    idZonaMG: 5,
     alias: 'Porto do Son',
     name: 'Porto do Son',
     zone: 'Rías Baixas',
@@ -203,6 +222,16 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 12,
+    idZonaMG: 5,
+    alias: 'Portosín',
+    name: 'Portosín',
+    zone: 'Rías Baixas',
+    lat: 42.76,
+    lng: -8.9483,
+  },
+  {
+    id: 12,
+    idZonaMG: 5,
     alias: 'Testal',
     name: 'Noia (Testal)',
     zone: 'Rías Baixas',
@@ -211,22 +240,29 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 12,
+    idZonaMG: 5,
     alias: 'Muros',
     name: 'Muros',
     zone: 'Rías Baixas',
     lat: 42.775,
     lng: -9.0583,
   },
+
+  // ==========================================
+  // COSTA DA MORTE (idZonaMG: 4)
+  // ==========================================
   {
     id: 7,
+    idZonaMG: 4,
     alias: 'O Pindo',
-    name: 'O Pindo',
+    name: 'O Pindo (Carnota)',
     zone: 'Costa da Morte',
     lat: 42.8986,
     lng: -9.1239,
   },
   {
     id: 7,
+    idZonaMG: 4,
     alias: 'O Ézaro',
     name: 'O Ézaro',
     zone: 'Costa da Morte',
@@ -235,6 +271,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 7,
+    idZonaMG: 4,
     alias: 'Corcubión',
     name: 'Corcubión',
     zone: 'Costa da Morte',
@@ -243,14 +280,17 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 7,
+    idZonaMG: 4,
     alias: 'Fisterra',
-    name: 'Fisterra',
+    name: 'Fisterra (Cabo)',
     zone: 'Costa da Morte',
+    // Axustado lixeiramente a mar aberto para capturar o mar oceánico de Open-Meteo
     lat: 42.9083,
-    lng: -9.2611,
+    lng: -9.268,
   },
   {
     id: 8,
+    idZonaMG: 4,
     alias: 'Muxía',
     name: 'Muxía',
     zone: 'Costa da Morte',
@@ -259,6 +299,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 8,
+    idZonaMG: 4,
     alias: 'Camariñas',
     name: 'Camariñas',
     zone: 'Costa da Morte',
@@ -267,6 +308,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 9,
+    idZonaMG: 4,
     alias: 'Laxe',
     name: 'Laxe',
     zone: 'Costa da Morte',
@@ -275,6 +317,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 9,
+    idZonaMG: 4,
     alias: 'Corme',
     name: 'Corme',
     zone: 'Costa da Morte',
@@ -283,6 +326,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 9,
+    idZonaMG: 4,
     alias: 'Malpica',
     name: 'Malpica de Bergantiños',
     zone: 'Costa da Morte',
@@ -291,94 +335,118 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 1,
+    idZonaMG: 4,
     alias: 'Caión',
     name: 'Caión',
     zone: 'Costa da Morte',
     lat: 43.3183,
     lng: -8.6183,
   },
+
+  // ==========================================
+  // GOLFO ÁRTABRO (idZonaMG: 3)
+  // ==========================================
   {
     id: 1,
+    idZonaMG: 3,
     alias: 'Dársena / O Parrote',
     name: 'A Coruña (Dársena / O Parrote)',
-    zone: 'Rías Altas',
+    zone: 'Ártabro',
     lat: 43.3695,
     lng: -8.3963,
   },
   {
     id: 1,
+    idZonaMG: 3,
     alias: 'Oza',
     name: 'A Coruña (Oza)',
-    zone: 'Rías Altas',
+    zone: 'Ártabro',
     lat: 43.3497,
     lng: -8.3839,
   },
   {
     id: 1,
+    idZonaMG: 3,
     alias: 'Sada',
     name: 'Sada',
-    zone: 'Rías Altas',
+    zone: 'Ártabro',
     lat: 43.3556,
     lng: -8.2486,
   },
   {
     id: 16,
+    idZonaMG: 3,
     alias: 'Ares',
     name: 'Ares',
-    zone: 'Rías Altas',
+    zone: 'Ártabro',
     lat: 43.4244,
     lng: -8.2417,
   },
   {
     id: 16,
+    idZonaMG: 3,
     alias: 'Mugardos',
     name: 'Mugardos',
-    zone: 'Rías Altas',
+    zone: 'Ártabro',
     lat: 43.4614,
     lng: -8.2561,
   },
   {
     id: 16,
+    idZonaMG: 3,
     alias: 'Curuxeiras',
     name: 'Ferrol (Curuxeiras)',
-    zone: 'Rías Altas',
+    zone: 'Ártabro',
     lat: 43.4832,
     lng: -8.2369,
   },
+
+  // ==========================================
+  // FERROL - BARES (idZonaMG: 2)
+  // ==========================================
   {
     id: 14,
+    idZonaMG: 2,
     alias: 'Cedeira',
     name: 'Cedeira',
-    zone: 'Rías Altas',
+    zone: 'Ferrol-Bares',
     lat: 43.7,
     lng: -8.0567,
   },
   {
     id: 14,
+    idZonaMG: 2,
     alias: 'Cariño',
     name: 'Cariño',
-    zone: 'Rías Altas',
+    zone: 'Ferrol-Bares',
     lat: 43.7408,
     lng: -7.8686,
   },
   {
     id: 14,
+    idZonaMG: 2,
     alias: 'Ortigueira',
     name: 'Ortigueira',
-    zone: 'Rías Altas',
+    zone: 'Ferrol-Bares',
     lat: 43.6847,
     lng: -7.8544,
   },
   {
     id: 6,
+    idZonaMG: 2,
     alias: 'O Barqueiro',
     name: 'O Barqueiro',
-    zone: 'Cantábrico',
+    zone: 'Ferrol-Bares',
     lat: 43.7386,
     lng: -7.7025,
   },
+
+  // ==========================================
+  // COSTA CANTÁBRICA (idZonaMG: 1)
+  // ==========================================
   {
     id: 6,
+    idZonaMG: 1,
     alias: 'O Vicedo',
     name: 'O Vicedo',
     zone: 'Cantábrico',
@@ -387,6 +455,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 6,
+    idZonaMG: 1,
     alias: 'Celeiro',
     name: 'Celeiro (Viveiro)',
     zone: 'Cantábrico',
@@ -395,6 +464,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 6,
+    idZonaMG: 1,
     alias: 'Burela',
     name: 'Burela',
     zone: 'Cantábrico',
@@ -403,6 +473,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 6,
+    idZonaMG: 1,
     alias: 'Foz',
     name: 'Foz',
     zone: 'Cantábrico',
@@ -411,6 +482,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 6,
+    idZonaMG: 1,
     alias: 'Rinlo',
     name: 'Rinlo',
     zone: 'Cantábrico',
@@ -419,6 +491,7 @@ export const PORTS_DATA: Port[] = [
   },
   {
     id: 6,
+    idZonaMG: 1,
     alias: 'Porcillán',
     name: 'Ribadeo (Porcillán)',
     zone: 'Cantábrico',

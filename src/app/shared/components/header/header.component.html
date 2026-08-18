@@ -1,0 +1,31 @@
+<!-- Cabeceira Minimalista -->
+<header
+  class="flex items-center justify-between border-b border-neutral-800 pb-4"
+>
+  <div>
+    <h1 class="text-xl font-bold tracking-tight text-white">PICANOUNON.GAL</h1>
+    <p class="text-xs text-neutral-400 uppercase tracking-widest mt-0.5">
+      Predición marítima & mareas
+    </p>
+  </div>
+  <div class="flex items-center gap-3">
+    <!-- Botón Toggle Modo Claro / Oscuro -->
+    <button
+      type="button"
+      (click)="themeService.toggleTheme()"
+      class="px-2.5 py-1.5 rounded border border-neutral-800 bg-neutral-900 text-neutral-300 hover:border-neutral-700 hover:text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer"
+      [title]="themeService.theme() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+    >
+      @if (themeService.theme() === 'dark') {
+        <span>☀️ CLARO</span>
+      } @else {
+        <span>🌙 OSCURO</span>
+      }
+    </button>
+
+    <span class="text-xs text-neutral-500 hidden sm:inline"
+      >[{{ dateTime | date: "dd/MM/yyyy" }} //
+      {{ dateTime | date: "HH:mm" }}]</span
+    >
+  </div>
+</header>

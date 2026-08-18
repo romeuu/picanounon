@@ -1,0 +1,10 @@
+export interface HourlyForecast {
+  time: string;
+  waveHeight: number;
+  wavePeriod: number;
+  windSpeed: number;
+  isSafe: boolean;
+  scoreSargos: number;
+  scoreRobaliza: number;
+  scoreAgullas: number;
+}
