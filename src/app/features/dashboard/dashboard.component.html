@@ -73,54 +73,37 @@
   </div>
 </section>
 
-<!-- Liña Temporal Horaria Compacta -->
-<section class="space-y-2">
+<section class="space-y-2 mt-5">
   <h2 class="text-xs uppercase tracking-widest text-neutral-400">
     [PREDICIÓN PRÓXIMAS HORAS]
   </h2>
-  <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-    <!-- Hora Bloque -->
-    <div
-      class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-    >
-      <div class="text-xs text-neutral-400">21:00</div>
-      <div class="text-sm font-bold text-emerald-400">82</div>
-      <div class="text-[10px] text-neutral-400">1.2m · 11s</div>
+
+  @if (isLoading()) {
+    <div class="text-xs text-neutral-400 py-4">Cargando predición...</div>
+  } @else if (hourlyForecast().length > 0) {
+    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+      @for (hour of hourlyForecast(); track hour.time) {
+        @if (hour.time >= currentTime.getHours().toString()) {
+          <div
+            class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
+          >
+            <div class="text-xs text-neutral-400">{{ hour.time }}</div>
+            <div
+              class="text-sm font-bold"
+              [ngClass]="colorByScore(hour.scoreSargos)"
+            >
+              {{ hour.scoreSargos }}
+            </div>
+            <div class="text-[10px] text-neutral-400">
+              {{ hour.waveHeight }}m · {{ hour.wavePeriod }}s
+            </div>
+          </div>
+        }
+      }
     </div>
-    <div
-      class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-    >
-      <div class="text-xs text-neutral-400">22:00</div>
-      <div class="text-sm font-bold text-amber-400">65</div>
-      <div class="text-[10px] text-neutral-400">1.4m · 10s</div>
+  } @else {
+    <div class="text-xs text-neutral-500 py-4">
+      Selecciona un porto para ver a predición.
     </div>
-    <div
-      class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-    >
-      <div class="text-xs text-neutral-400">23:00</div>
-      <div class="text-sm font-bold text-rose-400">40</div>
-      <div class="text-[10px] text-neutral-400">1.8m · 8s</div>
-    </div>
-    <div
-      class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-    >
-      <div class="text-xs text-neutral-400">00:00</div>
-      <div class="text-sm font-bold text-rose-400">35</div>
-      <div class="text-[10px] text-neutral-400">1.9m · 7s</div>
-    </div>
-    <div
-      class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-    >
-      <div class="text-xs text-neutral-400">01:00</div>
-      <div class="text-sm font-bold text-amber-400">55</div>
-      <div class="text-[10px] text-neutral-400">1.5m · 9s</div>
-    </div>
-    <div
-      class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-    >
-      <div class="text-xs text-neutral-400">02:00</div>
-      <div class="text-sm font-bold text-emerald-400">78</div>
-      <div class="text-[10px] text-neutral-400">1.3m · 10s</div>
-    </div>
-  </div>
+  }
 </section>

@@ -2,6 +2,7 @@ import { Zone } from '../enums/zone.enum';
 
 export interface Port {
   id: number;
+  idZonaMG: number;
   alias: string;
   name: string;
   zone: Zone;

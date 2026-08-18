@@ -3,4 +3,6 @@ export type Zone =
   | 'Rías Baixas'
   | 'Costa da Morte'
   | 'Rías Altas'
-  | 'Cantábrico';
+  | 'Cantábrico'
+  | 'Ferrol-Bares'
+  | 'Ártabro';
