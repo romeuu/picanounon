@@ -1,10 +1,10 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SafetyLevel } from '../../core/models/enums/safety-level.enum';
 import { TargetSpecies } from '../../core/models/enums/species.enum';
 import { MarineConditions } from '../../core/models/interfaces/marine-conditions.model';
 import { SimpleScoreResult } from '../../core/models/interfaces/spot-recommendation.model';
 
-@Service()
+@Injectable({ providedIn: 'root' })
 export class ScoringService {
   /**
    * Densidade de fluxo de enerxía da onda: P ≈ 0.49 * Hs^2 * Tp (kW/m)

@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 
 export interface RawMarineWeatherData {
@@ -10,7 +10,7 @@ export interface RawMarineWeatherData {
   isDay: number[];
 }
 
-@Service()
+@Injectable({ providedIn: 'root' })
 export class MarineWeatherService {
   private http = inject(HttpClient);
   private readonly URL = 'https://marine-api.open-meteo.com/v1/marine';
