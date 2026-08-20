@@ -1,0 +1,8 @@
+<div>
+  <p class="mb-3 px-1">SELECCIÓN DE DÍA</p>
+  @for (day of nextDays(); track day) {
+    <app-ui-pill [selected]="isDateSelected(day)" (clicked)="selectDate(day)">{{
+      day | galicianSelectorDay
+    }}</app-ui-pill>
+  }
+</div>

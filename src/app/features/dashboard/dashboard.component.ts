@@ -3,13 +3,14 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TargetSpecies } from '../../core/models/enums/species.enum';
 import { HourlyForecast } from '../../core/models/interfaces/hourly-forecast.model';
 import { PortService } from '../../core/services/port.service';
+import { DaySelectorComponent } from '../../shared/components/day-selector/day-selector.component';
 import { PortSelectorComponent } from '../../shared/components/port-selector/port-selector.component';
 import { ForecastService } from '../../shared/services/forecast.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [PortSelectorComponent, CommonModule, NgClass],
+  imports: [PortSelectorComponent, CommonModule, NgClass, DaySelectorComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -59,7 +60,10 @@ export class DashboardComponent {
     this.selectedSpecies.set(species);
   }
 
-  getScoreForSpecies(forecast: HourlyForecast | null, species: TargetSpecies): number {
+  getScoreForSpecies(
+    forecast: HourlyForecast | null,
+    species: TargetSpecies,
+  ): number {
     if (!forecast) return 0;
     switch (species) {
       case TargetSpecies.SARGOS:
