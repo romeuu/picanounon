@@ -7,6 +7,7 @@ import { DaySelectorComponent } from '../../shared/components/day-selector/day-s
 import { FishSelectorComponent } from '../../shared/components/fish-selector/fish-selector.component';
 import { PortSelectorComponent } from '../../shared/components/port-selector/port-selector.component';
 import { ForecastService } from '../../shared/services/forecast.service';
+import { CardScoreComponent } from './components/card-score/card-score.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ import { ForecastService } from '../../shared/services/forecast.service';
     NgClass,
     DaySelectorComponent,
     FishSelectorComponent,
+    CardScoreComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

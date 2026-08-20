@@ -1,0 +1,19 @@
+<app-ui-card [title]="'PUNTUACIÓN ' + selectedSpecies" class="mt-5">
+  <span card-action class="cursor-pointer hover:opacity-100 opacity-70">
+    <img
+      src="assets/info.svg"
+      alt="Info"
+      class="w-4 h-4 filter invert opacity-80"
+    />
+  </span>
+  <div class="flex items-center justify-between my-auto py-3 px-1">
+    <img
+      [src]="fishIcon"
+      [alt]="selectedSpecies"
+      class="h-36 w-auto object-contain filter invert brightness-200"
+    />
+    <div class="text-4xl font-extrabold font-mono" [ngClass]="scoreColorClass">
+      {{ score }}/100
+    </div>
+  </div>
+</app-ui-card>
