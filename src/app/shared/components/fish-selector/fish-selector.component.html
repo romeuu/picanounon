@@ -1,0 +1,22 @@
+<div class="mt-5 flex flex-wrap items-stretch gap-2">
+  @for (sp of speciesList; track sp.key) {
+    <button
+      type="button"
+      (click)="select(sp.key)"
+      class="h-11 px-4 text-xs uppercase tracking-wider font-bold rounded-xl border transition-all duration-150 flex items-center justify-center gap-2.5 cursor-pointer font-mono"
+      [ngClass]="{
+        'bg-orange border-orange text-white shadow-md shadow-orange/20':
+          selectedSpecies === sp.key,
+        'bg-[#1a2942] border-[#243757] text-[#94a3b8] hover:bg-[#223554] hover:text-white':
+          selectedSpecies !== sp.key,
+      }"
+    >
+      <img
+        [src]="sp.icon"
+        [alt]="sp.label"
+        class="h-8 w-10 object-contain filter invert brightness-200"
+      />
+      <span>{{ sp.label }}</span>
+    </button>
+  }
+</div>

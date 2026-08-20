@@ -7,7 +7,7 @@ export class GalicianSelectorDayPipe implements PipeTransform {
   transform(value: Date, ...args: unknown[]): string | null {
     if (!value) return null;
 
-    const daysInGalician = ['DOM', 'LUN', 'MAR', 'MER', 'XOV', 'VEN', 'SAB'];
+    const daysInGalician = ['DOM', 'LUN', 'MAR', 'MER', 'XOV', 'VEN', 'SÁB'];
 
     return daysInGalician[value.getDay()] + '(' + value.getDate() + ')';
   }

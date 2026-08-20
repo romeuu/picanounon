@@ -1,16 +1,23 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, model } from '@angular/core';
 import { TargetSpecies } from '../../core/models/enums/species.enum';
 import { HourlyForecast } from '../../core/models/interfaces/hourly-forecast.model';
 import { PortService } from '../../core/services/port.service';
 import { DaySelectorComponent } from '../../shared/components/day-selector/day-selector.component';
+import { FishSelectorComponent } from '../../shared/components/fish-selector/fish-selector.component';
 import { PortSelectorComponent } from '../../shared/components/port-selector/port-selector.component';
 import { ForecastService } from '../../shared/services/forecast.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [PortSelectorComponent, CommonModule, NgClass, DaySelectorComponent],
+  imports: [
+    PortSelectorComponent,
+    CommonModule,
+    NgClass,
+    DaySelectorComponent,
+    FishSelectorComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -25,7 +32,7 @@ export class DashboardComponent {
     { key: TargetSpecies.AGULLAS, label: 'Agullas' },
   ];
 
-  selectedSpecies = signal<TargetSpecies>(TargetSpecies.SARGOS);
+  selectedSpecies = model<TargetSpecies>(TargetSpecies.SARGOS);
   selectedPort = computed(() => this._portService.selectedPort());
   hourlyForecast = computed(() => this._forecastService.hourlyForecast());
   isLoading = computed(() => this._forecastService.isLoading());
@@ -54,10 +61,11 @@ export class DashboardComponent {
         this._forecastService.loadForecastForPort(port);
       }
     });
-  }
 
-  selectSpecies(species: TargetSpecies): void {
-    this.selectedSpecies.set(species);
+    effect(() => {
+      const selectedSpecie = this.selectedSpecies();
+      console.log(selectedSpecie);
+    });
   }
 
   getScoreForSpecies(
