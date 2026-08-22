@@ -7,6 +7,9 @@ import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.c
   selector: 'app-card-score',
   standalone: true,
   imports: [UiCardComponent, NgClass],
+  host: {
+    class: 'block h-full min-w-0',
+  },
   templateUrl: './card-score.component.html',
   styleUrl: './card-score.component.css',
 })

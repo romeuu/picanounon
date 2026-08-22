@@ -19,35 +19,11 @@ export class FooterComponent {
   isModalOpen = signal<boolean>(false);
 
   readonly credits: IconCredit[] = [
-    {
-      name: 'Sargo (Fish)',
-      author: 'Daria Moskvina',
-      file: 'sargos.svg',
-    },
-    {
-      name: 'Robaliza (Sea Bass)',
-      author: 'Lars Meiertoberens',
-      file: 'robalizas.svg',
-    },
-    {
-      name: 'Agulla (Garfish)',
-      author: 'Foxyard Studio',
-      file: 'agullas.svg',
-    },
-    {
-      name: 'Información (Info)',
-      author: 'moon studio',
-      file: 'info.svg',
-    },
-    {
-      name: 'Temperatura da Auga',
-      author: 'Candy Design',
-      file: 'temperatura-agua.svg',
-    },
-    {
-      name: 'Tempo e Nubes',
-      author: 'Dierys Design',
-      file: 'prevision-tiempo.svg',
-    },
+    { name: 'Sargo (Fish)', author: 'Daria Moskvina', file: 'sargos.svg' },
+    { name: 'Robaliza (Sea Bass)', author: 'Lars Meiertoberens', file: 'robalizas.svg' },
+    { name: 'Agulla (Garfish)', author: 'Foxyard Studio', file: 'agullas.svg' },
+    { name: 'Información (Info)', author: 'moon studio', file: 'info.svg' },
+    { name: 'Temperatura da Auga', author: 'Candy Design', file: 'temperatura-agua.svg' },
+    { name: 'Tempo e Nubes', author: 'Dierys Design', file: 'prevision-tiempo.svg' },
   ];
 }

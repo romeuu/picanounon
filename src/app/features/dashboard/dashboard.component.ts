@@ -1,4 +1,4 @@
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, model } from '@angular/core';
 import { TargetSpecies } from '../../core/models/enums/species.enum';
 import { HourlyForecast } from '../../core/models/interfaces/hourly-forecast.model';
@@ -8,6 +8,7 @@ import { FishSelectorComponent } from '../../shared/components/fish-selector/fis
 import { PortSelectorComponent } from '../../shared/components/port-selector/port-selector.component';
 import { ForecastService } from '../../shared/services/forecast.service';
 import { CardScoreComponent } from './components/card-score/card-score.component';
+import { InfoCardComponent } from './components/info-card/info-card.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,10 @@ import { CardScoreComponent } from './components/card-score/card-score.component
   imports: [
     PortSelectorComponent,
     CommonModule,
-    NgClass,
     DaySelectorComponent,
     FishSelectorComponent,
     CardScoreComponent,
+    InfoCardComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

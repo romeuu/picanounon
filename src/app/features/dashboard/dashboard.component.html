@@ -1,6 +1,18 @@
 <div class="mt-5">
   <app-port-selector></app-port-selector>
-  <app-day-selector></app-day-selector>
+  <div class="mt-5">
+    <app-day-selector></app-day-selector>
+  </div>
   <app-fish-selector [(speciesSelected)]="selectedSpecies"></app-fish-selector>
-  <app-card-score [selectedSpecies]="selectedSpecies()"></app-card-score>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch mt-5">
+    <div class="md:col-span-3">
+      <app-card-score [selectedSpecies]="selectedSpecies()"></app-card-score>
+    </div>
+
+    <div class="md:col-span-6">
+      <app-info-card [forecast]="currentForecast()"></app-info-card>
+    </div>
+
+    <div class="md:col-span-3"></div>
+  </div>
 </div>
