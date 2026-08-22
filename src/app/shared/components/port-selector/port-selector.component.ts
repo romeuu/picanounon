@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Port } from '../../../core/models/interfaces/port';
 import { PortService } from '../../../core/services/port.service';
 import { ForecastService } from '../../services/forecast.service';
+import { UiModalComponent } from '../ui-modal/ui-modal.component';
 
 @Component({
   selector: 'app-port-selector',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UiModalComponent],
   templateUrl: './port-selector.component.html',
 })
 export class PortSelectorComponent {
