@@ -67,7 +67,6 @@ export class DashboardComponent {
 
     effect(() => {
       const selectedSpecie = this.selectedSpecies();
-      console.log(selectedSpecie);
     });
   }
 

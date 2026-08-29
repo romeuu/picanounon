@@ -6,7 +6,7 @@
   <app-fish-selector [(speciesSelected)]="selectedSpecies"></app-fish-selector>
   <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch mt-5">
     <div class="md:col-span-3">
-      <app-card-score [selectedSpecies]="selectedSpecies()"></app-card-score>
+      <app-card-score [selectedSpecies]="selectedSpecies()" [forecast]="currentForecast()"></app-card-score>
     </div>
 
     <div class="md:col-span-6">

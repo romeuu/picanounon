@@ -1,4 +1,4 @@
-<app-ui-card [title]="'PUNTUACIÓN ' + selectedSpecies">
+<app-ui-card [title]="'PUNTUACIÓN ' + selectedSpecies()">
   <span card-action class="cursor-pointer hover:opacity-100 opacity-70">
     <img
       src="assets/info.svg"
@@ -9,14 +9,14 @@
   <div class="flex items-center justify-between gap-2 my-auto py-3 min-w-0 overflow-hidden">
     <img
       [src]="fishIcon"
-      [alt]="selectedSpecies"
+      [alt]="selectedSpecies()"
       class="h-16 lg:h-20 max-w-[45%] object-contain filter invert brightness-200 shrink-0"
     />
     <div
       class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-mono shrink-0"
       [ngClass]="scoreColorClass"
     >
-      {{ score }}<span class="text-xs sm:text-sm font-normal text-[#94a3b8]">/100</span>
+      {{ score() }}<span class="text-xs sm:text-sm font-normal text-[#94a3b8]">/100</span>
     </div>
   </div>
 </app-ui-card>

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, effect, input, Input } from '@angular/core';
 import { HourlyForecast } from '../../../../core/models/interfaces/hourly-forecast.model';
 import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.component';
 
@@ -14,5 +14,13 @@ import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.c
   styleUrl: './info-card.component.css',
 })
 export class InfoCardComponent {
-  @Input() forecast: HourlyForecast | null = null;
+  forecast= input.required<HourlyForecast | null>();
+
+  constructor() {
+    effect(() => {
+      const forecast = this.forecast();
+
+      console.log(forecast);
+    });
+  }
 }
