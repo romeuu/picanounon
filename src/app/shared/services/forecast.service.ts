@@ -79,18 +79,39 @@ export class ForecastService {
             tidePhase = hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
           }
 
-          const hourNum = dateObj.getHours();
+          // Cálculo dinámico de momento crepuscular (±60 min arredor de amencer e solpor)
+          const timeMs = dateObj.getTime();
+          let isCrepuscular = false;
+
+          if (
+            (data.sunrise && data.sunrise.length > 0) ||
+            (data.sunset && data.sunset.length > 0)
+          ) {
+            const ONE_HOUR_MS = 60 * 60 * 1000;
+            const isNearSunrise = (data.sunrise ?? []).some(
+              (s) => Math.abs(timeMs - new Date(s).getTime()) <= ONE_HOUR_MS,
+            );
+            const isNearSunset = (data.sunset ?? []).some(
+              (s) => Math.abs(timeMs - new Date(s).getTime()) <= ONE_HOUR_MS,
+            );
+            isCrepuscular = isNearSunrise || isNearSunset;
+          } else {
+            // Fallback xenérico só en caso de que falten datos solares
+            const hourNum = dateObj.getHours();
+            isCrepuscular =
+              hourNum === 7 ||
+              hourNum === 8 ||
+              hourNum === 21 ||
+              hourNum === 22;
+          }
+
           const conditions: MarineConditions = {
             waveHeight: data.waveHeight[i] ?? 0,
             wavePeriod: data.wavePeriod[i] ?? 0,
             windSpeed: data.windSpeed[i] ?? 0,
             tidePhase,
             tideHeight,
-            isCrepuscular:
-              hourNum === 7 ||
-              hourNum === 8 ||
-              hourNum === 21 ||
-              hourNum === 22,
+            isCrepuscular,
             isDaylight: (data.isDay[i] ?? 1) === 1,
           };
 

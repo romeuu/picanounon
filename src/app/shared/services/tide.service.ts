@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { forkJoin, Observable, map } from 'rxjs';
 import {
   CurrentTideStatus,
@@ -14,11 +14,13 @@ export class TideService {
   private http = inject(HttpClient);
   private readonly API_URL = '/api/tides';
 
+  readonly currentTides = signal<TideResponse[]>([]);
+  readonly currentTideStatus = signal<CurrentTideStatus | null>(null);
+
   getTidesByPort(id: number, dateStr?: string): Observable<TideResponse[]> {
     const today = new Date();
     const targetDate = dateStr ?? today.toISOString().split('T')[0];
 
-    // Se se pide a data de hoxe, pedimos tamén o día seguinte por si estamos ao final del día
     const dateObj = new Date(targetDate);
     const nextDayObj = new Date(dateObj);
     nextDayObj.setDate(nextDayObj.getDate() + 1);
@@ -39,6 +41,8 @@ export class TideService {
         if (combined.length === 0) {
           throw new Error('Non hai datos de marea dispoñibles para este porto');
         }
+        this.currentTides.set(combined);
+        this.currentTideStatus.set(this.calculateCurrentDataTide(combined));
         return combined;
       }),
     );

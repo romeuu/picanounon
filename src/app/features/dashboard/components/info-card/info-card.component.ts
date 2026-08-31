@@ -23,29 +23,6 @@ export class InfoCardComponent {
   forecast = input.required<HourlyForecast | null>();
   port = input.required<Port | null>();
 
-  tides: TideResponse[] | null = null;
-  tideStatus = signal<CurrentTideStatus | null>(null);
-
   private readonly _tideService = inject(TideService);
-
-  constructor() {
-    effect(() => {
-      this.loadTides();
-    });
-  }
-
-  ngOnInit(): void {
-    this.loadTides();
-  }
-
-  loadTides(): void {
-    if (!this.port()) return;
-    this._tideService
-      .getTidesByPort(this.port()?.id!)
-      .subscribe((response: TideResponse[]) => {
-        this.tideStatus.set(
-          this._tideService.calculateCurrentDataTide(response),
-        );
-      });
-  }
+  readonly tideStatus = this._tideService.currentTideStatus;
 }

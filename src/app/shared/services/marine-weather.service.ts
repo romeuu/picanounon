@@ -8,6 +8,8 @@ export interface RawMarineWeatherData {
   wavePeriod: number[];
   windSpeed: number[];
   isDay: number[];
+  sunrise?: string[];
+  sunset?: string[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -29,6 +31,7 @@ export class MarineWeatherService {
       .set('latitude', lat.toString())
       .set('longitude', lng.toString())
       .set('hourly', 'wind_speed_10m,is_day')
+      .set('daily', 'sunrise,sunset')
       .set('timezone', 'Europe/Madrid')
       .set('forecast_days', '7');
 
@@ -42,6 +45,8 @@ export class MarineWeatherService {
         wavePeriod: marine.hourly.wave_period,
         windSpeed: weather.hourly.wind_speed_10m,
         isDay: weather.hourly.is_day,
+        sunrise: weather.daily?.sunrise ?? [],
+        sunset: weather.daily?.sunset ?? [],
       })),
     );
   }

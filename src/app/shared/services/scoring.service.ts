@@ -44,7 +44,7 @@ export class ScoringService {
     const { waveHeight, windSpeed, tidePhase, isCrepuscular, isDaylight } =
       conditions;
 
-    // 1. Corte estrito de seguridade na pedra
+    // 1. Corte estrito de seguridade na pedra / mar excesivo
     if (waveHeight >= 2.2) {
       return {
         score: 10,
@@ -53,112 +53,167 @@ export class ScoringService {
       };
     }
 
-    let score = 50;
+    let finalScore = 0;
 
     switch (species) {
-      case TargetSpecies.SARGOS:
-        // Puntuación graduada de mar batido / escuma
-        if (waveHeight >= 1.2 && waveHeight <= 1.9) {
-          score += 35;
+      case TargetSpecies.ROBALIZA: {
+        // Total: 100 pts (Mar: 40, Luz: 25, Marea: 20, Vento: 15)
+        let waveScore = 0;
+        if (waveHeight >= 1.2 && waveHeight <= 1.6) {
+          waveScore = 40; // Rango óptimo (auga osixenada e escuma perfecta)
         } else if (waveHeight >= 0.9 && waveHeight < 1.2) {
-          score += 15; // Mar aceptable
-        } else if (waveHeight > 1.9 && waveHeight < 2.2) {
-          score += 10; // Moito mar, pesca técnica
+          waveScore = 28; // Bo
+        } else if (waveHeight > 1.6 && waveHeight <= 2.0) {
+          waveScore = 20; // Mar forte pero pescable
+        } else if (waveHeight >= 0.6 && waveHeight < 0.9) {
+          waveScore = 12; // Mar algo escaso
         } else {
-          score -= 30; // Menos de 0.9m: auga excesivamente parada
+          waveScore = 5; // < 0.6m auga prato, desconfianza total
         }
 
-        // Factor Marea
-        if (
-          tidePhase === TidePhase.ENCHENTE ||
-          tidePhase === TidePhase.PREAMAR
-        ) {
-          score += 20;
-        } else if (tidePhase === TidePhase.MINGUANTE) {
-          score -= 5;
-        } else if (tidePhase === TidePhase.BAIXAMAR) {
-          score -= 20;
-        }
-
-        // Vento para o sargo
-        if (windSpeed > 30) score -= 20;
-        else if (windSpeed >= 10 && windSpeed <= 22) score += 10;
-        break;
-
-      case TargetSpecies.ROBALIZA:
-        // Mar favorable para spinning/costa
-        if (waveHeight >= 1.0 && waveHeight <= 1.7) {
-          score += 30;
-        } else if (waveHeight >= 0.7 && waveHeight < 1.0) {
-          score += 15;
-        } else if (waveHeight > 1.7) {
-          score += 5;
-        } else {
-          score -= 20; // < 0.7m auga moi clara
-        }
-
-        // Factor Luz (clave nos lances)
+        let lightScore = 0;
         if (isCrepuscular) {
-          score += 25;
+          lightScore = 25; // Pico de caza ao amencer/serán
         } else if (!isDaylight) {
-          score += 10; // A robaliza mantén actividade nocturna
+          lightScore = 15; // Caza nocturna activa
+        } else {
+          lightScore = 5; // Día pleno, menor actividade preto da beira
         }
 
-        // Factor Marea
+        let tideScore = 0;
         if (
           tidePhase === TidePhase.ENCHENTE ||
           tidePhase === TidePhase.MINGUANTE
         ) {
-          score += 20;
+          tideScore = 20; // Auga en movemento, arrastre de alimento
         } else if (tidePhase === TidePhase.PREAMAR) {
-          score += 5; // Achegamento de presas á costa
-        } else if (tidePhase === TidePhase.BAIXAMAR) {
-          score -= 15;
+          tideScore = 10; // Presas na beira pero menor corrente
+        } else {
+          tideScore = 0; // Baixamar parada
         }
 
-        if (windSpeed > 25) score -= 15;
+        let windScore = 0;
+        if (windSpeed >= 8 && windSpeed <= 20) {
+          windScore = 15; // Brisa que encrespa a superficie
+        } else if (windSpeed < 8) {
+          windScore = 10; // Calma
+        } else if (windSpeed <= 25) {
+          windScore = 5;
+        } else {
+          windScore = 0; // Vento moi molesto (> 25 km/h)
+        }
+
+        finalScore = waveScore + lightScore + tideScore + windScore;
         break;
+      }
 
-      case TargetSpecies.AGULLAS:
-        // Precisa mar calmo
-        if (waveHeight <= 0.7) {
-          score += 35;
-        } else if (waveHeight <= 1.1) {
-          score += 10;
+      case TargetSpecies.SARGOS: {
+        // Total: 100 pts (Mar: 50, Marea: 30, Vento: 20)
+        let waveScore = 0;
+        if (waveHeight >= 1.3 && waveHeight <= 1.8) {
+          waveScore = 50; // O mar batido ideal con escumeiro abundante
+        } else if (waveHeight >= 1.0 && waveHeight < 1.3) {
+          waveScore = 35; // Aceptable
+        } else if (waveHeight > 1.8 && waveHeight <= 2.1) {
+          waveScore = 30; // Moito mar, técnico
+        } else if (waveHeight >= 0.7 && waveHeight < 1.0) {
+          waveScore = 15;
         } else {
-          score -= 35; // > 1.1m a superficie está rota
+          waveScore = 0; // < 0.7m auga excesivamente parada nas pedras
         }
 
-        // Luz estrita (caza en superficie 100% visual)
+        let tideScore = 0;
+        if (tidePhase === TidePhase.ENCHENTE) {
+          tideScore = 30; // O momento clave cando enchen as pedras
+        } else if (tidePhase === TidePhase.PREAMAR) {
+          tideScore = 25; // Auga alta, mariscando
+        } else if (tidePhase === TidePhase.MINGUANTE) {
+          tideScore = 10; // Comezan a retirarse
+        } else {
+          tideScore = 0; // Baixamar: pedras ao descuberto
+        }
+
+        let windScore = 0;
+        if (windSpeed >= 10 && windSpeed <= 22) {
+          windScore = 20; // Vento axeitado
+        } else if (windSpeed < 10) {
+          windScore = 12;
+        } else if (windSpeed <= 28) {
+          windScore = 5;
+        } else {
+          windScore = 0; // Vento duro
+        }
+
+        finalScore = waveScore + tideScore + windScore;
+        break;
+      }
+
+      case TargetSpecies.AGULLAS: {
+        // A agulla precisa luz solar directa en superficie; sen luz de día a pesca é inviable
         if (!isDaylight) {
-          score -= 60;
-        } else if (isCrepuscular) {
-          score += 5;
-        } else {
-          score += 20; // Pleno sol
+          return {
+            score: 5,
+            isSafe: true,
+            verdict: 'Sen actividade nocturna (Especie estritamente diúrna).',
+          };
         }
 
-        // Factor Marea
+        // Se é crepúsculo (pouca luz solar), a actividade cae drasticamente
+        if (isCrepuscular) {
+          return {
+            score: 20,
+            isSafe: true,
+            verdict: 'Actividade moi baixa polo solpor/falta de sol.',
+          };
+        }
+
+        // Total con sol pleno: 100 pts (Mar: 45, Luz: 25, Vento: 15, Marea: 15)
+        let waveScore = 0;
+        if (waveHeight <= 0.6) {
+          waveScore = 45; // Mar prato
+        } else if (waveHeight <= 0.9) {
+          waveScore = 30;
+        } else if (waveHeight <= 1.2) {
+          waveScore = 15;
+        } else {
+          waveScore = 0; // Superficie demasiado rota
+        }
+
+        const lightScore = 25; // Pleno sol con isDaylight activo
+
+        let windScore = 0;
+        if (windSpeed < 10) {
+          windScore = 15; // Superficie de espello
+        } else if (windSpeed <= 18) {
+          windScore = 8;
+        } else {
+          windScore = 0;
+        }
+
+        let tideScore = 0;
         if (
           tidePhase === TidePhase.ENCHENTE ||
           tidePhase === TidePhase.PREAMAR
         ) {
-          score += 15;
+          tideScore = 15;
+        } else {
+          tideScore = 5;
         }
 
-        // Vento (o vento riza a superficie e impide ver o engado)
-        if (windSpeed > 18) score -= 25;
-        else if (windSpeed < 10) score += 15;
+        finalScore = waveScore + lightScore + windScore + tideScore;
         break;
+      }
     }
 
-    const finalScore = Math.max(0, Math.min(100, score));
+    finalScore = Math.max(0, Math.min(100, finalScore));
 
     let verdict = 'Condicións desfavorables';
-    if (finalScore >= 75) {
-      verdict = 'Condicións moi favorables (Bo momento)';
-    } else if (finalScore >= 50) {
-      verdict = 'Condicións regulares (Actividade media)';
+    if (finalScore >= 80) {
+      verdict = 'Condicións óptimas (Moi bo momento)';
+    } else if (finalScore >= 60) {
+      verdict = 'Condicións favorables (Actividade boa)';
+    } else if (finalScore >= 40) {
+      verdict = 'Condicións regulares (Actividade moderada)';
     }
 
     return {
