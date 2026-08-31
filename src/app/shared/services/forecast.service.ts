@@ -1,4 +1,6 @@
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { TargetSpecies } from '../../core/models/enums/species.enum';
 import { TidePhase } from '../../core/models/enums/tide-phase.enum';
 import { HourlyForecast } from '../../core/models/interfaces/hourly-forecast.model';
@@ -6,10 +8,12 @@ import { MarineConditions } from '../../core/models/interfaces/marine-conditions
 import { Port } from '../../core/models/interfaces/port';
 import { MarineWeatherService } from './marine-weather.service';
 import { ScoringService } from './scoring.service';
+import { TideService } from './tide.service';
 
 @Injectable({ providedIn: 'root' })
 export class ForecastService {
   private readonly _marineWeatherService = inject(MarineWeatherService);
+  private readonly _tideService = inject(TideService);
   private readonly _scoringService = inject(ScoringService);
 
   private destroy$ = inject(DestroyRef);
@@ -22,21 +26,66 @@ export class ForecastService {
     this.isLoading.set(true);
     this.error.set(null);
 
-    this._marineWeatherService.getForecast(port.lat, port.lng).subscribe({
-      next: (data) => {
+    forkJoin({
+      weather: this._marineWeatherService.getForecast(port.lat, port.lng),
+      tides: this._tideService.getTidesByPort(port.id).pipe(catchError(() => of([]))),
+    }).subscribe({
+      next: ({ weather: data, tides }) => {
         const result: HourlyForecast[] = [];
         const totalHours = Math.min(24, data.time.length);
 
         for (let i = 0; i < totalHours; i++) {
           const rawTime = data.time[i];
-          const hourNum = new Date(rawTime).getHours();
+          const dateObj = new Date(rawTime);
 
+          // Determinar a fase de marea cos datos reais de marea se están dispoñibles
+          let tidePhase = TidePhase.ENCHENTE;
+          let tideHeight: number | undefined;
+
+          if (tides && tides.length > 0) {
+            // Atopar a marea máis próxima antes e despois do tempo actual da hora
+            const itemMs = dateObj.getTime();
+            const sortedTides = [...tides].sort(
+              (a, b) => new Date(a.tideDateTime).getTime() - new Date(b.tideDateTime).getTime()
+            );
+            const nextIdx = sortedTides.findIndex(
+              (t) => new Date(t.tideDateTime).getTime() > itemMs
+            );
+
+            if (nextIdx > 0) {
+              const prevTide = sortedTides[nextIdx - 1];
+              const nextTide = sortedTides[nextIdx];
+              const isRising = nextTide.height > prevTide.height;
+
+              // Se falta menos de 45 min para un pico de marea, consideramos ese pico
+              const diffPrevMinutes = Math.abs(itemMs - new Date(prevTide.tideDateTime).getTime()) / 60000;
+              const diffNextMinutes = Math.abs(new Date(nextTide.tideDateTime).getTime() - itemMs) / 60000;
+
+              if (diffPrevMinutes <= 45) {
+                tidePhase = prevTide.type.toLowerCase().includes('plea')
+                  ? TidePhase.PREAMAR
+                  : TidePhase.BAIXAMAR;
+              } else if (diffNextMinutes <= 45) {
+                tidePhase = nextTide.type.toLowerCase().includes('plea')
+                  ? TidePhase.PREAMAR
+                  : TidePhase.BAIXAMAR;
+              } else {
+                tidePhase = isRising ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
+              }
+            }
+          } else {
+            // Fallback se non hai datos de mareas
+            const hourNum = dateObj.getHours();
+            tidePhase = hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
+          }
+
+          const hourNum = dateObj.getHours();
           const conditions: MarineConditions = {
             waveHeight: data.waveHeight[i] ?? 0,
             wavePeriod: data.wavePeriod[i] ?? 0,
             windSpeed: data.windSpeed[i] ?? 0,
-            tidePhase:
-              hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.PREAMAR,
+            tidePhase,
+            tideHeight,
             isCrepuscular:
               hourNum === 7 ||
               hourNum === 8 ||
@@ -74,9 +123,10 @@ export class ForecastService {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.error.set('Erro ao sincronizar datos de Open-Meteo');
+        this.error.set('Erro ao sincronizar datos de meteo');
         this.isLoading.set(false);
       },
     });
   }
 }
+

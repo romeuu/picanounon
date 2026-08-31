@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Port } from '../../../core/models/interfaces/port';
 import { PortService } from '../../../core/services/port.service';
 import { ForecastService } from '../../services/forecast.service';
+import { TideService } from '../../services/tide.service';
 import { UiModalComponent } from '../ui-modal/ui-modal.component';
 
 @Component({
@@ -15,6 +16,7 @@ import { UiModalComponent } from '../ui-modal/ui-modal.component';
 export class PortSelectorComponent {
   private readonly _portService = inject(PortService);
   private readonly _forecastService = inject(ForecastService);
+  private readonly _tideService = inject(TideService);
 
   isOpen = signal<boolean>(false);
   searchQuery = signal<string>('');
