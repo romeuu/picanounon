@@ -10,6 +10,8 @@ export interface RawMarineWeatherData {
   isDay: number[];
   sunrise?: string[];
   sunset?: string[];
+  seaTemperature: number[];
+  temperature: number[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -23,14 +25,14 @@ export class MarineWeatherService {
     const marineParams = new HttpParams()
       .set('latitude', lat.toString())
       .set('longitude', lng.toString())
-      .set('hourly', 'wave_height,wave_period')
+      .set('hourly', 'wave_height,wave_period,sea_surface_temperature')
       .set('timezone', 'Europe/Madrid')
       .set('forecast_days', '7');
 
     const weatherParams = new HttpParams()
       .set('latitude', lat.toString())
       .set('longitude', lng.toString())
-      .set('hourly', 'wind_speed_10m,is_day')
+      .set('hourly', 'wind_speed_10m,is_day,temperature_2m')
       .set('daily', 'sunrise,sunset')
       .set('timezone', 'Europe/Madrid')
       .set('forecast_days', '7');
@@ -47,6 +49,8 @@ export class MarineWeatherService {
         isDay: weather.hourly.is_day,
         sunrise: weather.daily?.sunrise ?? [],
         sunset: weather.daily?.sunset ?? [],
+        seaTemperature: marine.hourly.sea_surface_temperature ?? [],
+        temperature: weather.hourly.temperature_2m ?? [],
       })),
     );
   }

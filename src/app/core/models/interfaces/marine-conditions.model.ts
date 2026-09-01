@@ -9,5 +9,6 @@ export interface MarineConditions {
   tideStatus?: 'SUBINDO' | 'BAIXANDO';
   isCrepuscular: boolean; // Amencer ou serán
   isDaylight: boolean;
+  waterTemperature: number;
+  temperature: number;
 }
-

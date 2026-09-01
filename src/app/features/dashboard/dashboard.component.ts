@@ -9,6 +9,7 @@ import { PortSelectorComponent } from '../../shared/components/port-selector/por
 import { ForecastService } from '../../shared/services/forecast.service';
 import { CardScoreComponent } from './components/card-score/card-score.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
+import { TemperatureCardComponent } from './components/temperature-card/temperature-card.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,7 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
     FishSelectorComponent,
     CardScoreComponent,
     InfoCardComponent,
+    TemperatureCardComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

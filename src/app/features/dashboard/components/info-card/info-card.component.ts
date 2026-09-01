@@ -1,10 +1,5 @@
-import { NgClass } from '@angular/common';
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { HourlyForecast } from '../../../../core/models/interfaces/hourly-forecast.model';
-import {
-  CurrentTideStatus,
-  TideResponse,
-} from '../../../../core/models/interfaces/meteo-galicia.model';
 import { Port } from '../../../../core/models/interfaces/port';
 import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.component';
 import { TideService } from '../../../../shared/services/tide.service';
@@ -12,7 +7,7 @@ import { TideService } from '../../../../shared/services/tide.service';
 @Component({
   selector: 'app-info-card',
   standalone: true,
-  imports: [UiCardComponent, NgClass],
+  imports: [UiCardComponent],
   host: {
     class: 'block h-full min-w-0',
   },

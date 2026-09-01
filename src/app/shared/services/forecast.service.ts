@@ -28,11 +28,15 @@ export class ForecastService {
 
     forkJoin({
       weather: this._marineWeatherService.getForecast(port.lat, port.lng),
-      tides: this._tideService.getTidesByPort(port.id).pipe(catchError(() => of([]))),
+      tides: this._tideService
+        .getTidesByPort(port.id)
+        .pipe(catchError(() => of([]))),
     }).subscribe({
       next: ({ weather: data, tides }) => {
         const result: HourlyForecast[] = [];
         const totalHours = Math.min(24, data.time.length);
+
+        console.log(data);
 
         for (let i = 0; i < totalHours; i++) {
           const rawTime = data.time[i];
@@ -46,10 +50,12 @@ export class ForecastService {
             // Atopar a marea máis próxima antes e despois do tempo actual da hora
             const itemMs = dateObj.getTime();
             const sortedTides = [...tides].sort(
-              (a, b) => new Date(a.tideDateTime).getTime() - new Date(b.tideDateTime).getTime()
+              (a, b) =>
+                new Date(a.tideDateTime).getTime() -
+                new Date(b.tideDateTime).getTime(),
             );
             const nextIdx = sortedTides.findIndex(
-              (t) => new Date(t.tideDateTime).getTime() > itemMs
+              (t) => new Date(t.tideDateTime).getTime() > itemMs,
             );
 
             if (nextIdx > 0) {
@@ -58,8 +64,12 @@ export class ForecastService {
               const isRising = nextTide.height > prevTide.height;
 
               // Se falta menos de 45 min para un pico de marea, consideramos ese pico
-              const diffPrevMinutes = Math.abs(itemMs - new Date(prevTide.tideDateTime).getTime()) / 60000;
-              const diffNextMinutes = Math.abs(new Date(nextTide.tideDateTime).getTime() - itemMs) / 60000;
+              const diffPrevMinutes =
+                Math.abs(itemMs - new Date(prevTide.tideDateTime).getTime()) /
+                60000;
+              const diffNextMinutes =
+                Math.abs(new Date(nextTide.tideDateTime).getTime() - itemMs) /
+                60000;
 
               if (diffPrevMinutes <= 45) {
                 tidePhase = prevTide.type.toLowerCase().includes('plea')
@@ -76,7 +86,8 @@ export class ForecastService {
           } else {
             // Fallback se non hai datos de mareas
             const hourNum = dateObj.getHours();
-            tidePhase = hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
+            tidePhase =
+              hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
           }
 
           // Cálculo dinámico de momento crepuscular (±60 min arredor de amencer e solpor)
@@ -113,6 +124,8 @@ export class ForecastService {
             tideHeight,
             isCrepuscular,
             isDaylight: (data.isDay[i] ?? 1) === 1,
+            waterTemperature: data.seaTemperature[i] ?? 15,
+            temperature: data.temperature[i] ?? 20,
           };
 
           const sargoRes = this._scoringService.calculateScore(
@@ -137,6 +150,8 @@ export class ForecastService {
             scoreSargos: sargoRes.score,
             scoreRobaliza: robalizaRes.score,
             scoreAgullas: agullaRes.score,
+            seaTemperature: conditions.waterTemperature,
+            temperature: conditions.temperature,
           });
         }
 
@@ -150,4 +165,3 @@ export class ForecastService {
     });
   }
 }
-

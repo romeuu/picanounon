@@ -7,4 +7,6 @@ export interface HourlyForecast {
   scoreSargos: number;
   scoreRobaliza: number;
   scoreAgullas: number;
+  seaTemperature: number;
+  temperature: number;
 }
