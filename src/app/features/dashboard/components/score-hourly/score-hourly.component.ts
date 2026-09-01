@@ -25,9 +25,9 @@ export class ScoreHourlyComponent {
   }
 
   getScoreColorClass(score: number): string {
-    if (score >= 65) return 'text-[#10b981]';
-    if (score >= 40) return 'text-[#ffe761]';
-    return 'text-[#ff6161]';
+    if (score >= 65) return 'text-green';
+    if (score >= 40) return 'text-yellow';
+    return 'text-red';
   }
 }
 

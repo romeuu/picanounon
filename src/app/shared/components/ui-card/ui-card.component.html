@@ -1,9 +1,9 @@
 <div
-  class="bg-[#132036] border border-[#21324d] rounded-2xl p-5 shadow-lg flex flex-col justify-between h-full transition-colors font-mono"
+  class="bg-gray border border-gray-light/30 rounded-2xl p-5 shadow-lg flex flex-col justify-between h-full transition-colors font-mono"
 >
   @if (title) {
     <div class="flex justify-between items-center mb-4">
-      <h3 class="text-xs uppercase tracking-widest text-[#94a3b8] font-bold">
+      <h3 class="text-xs uppercase tracking-widest text-gray-light font-bold">
         {{ title }}
       </h3>
       <ng-content select="[card-action]"></ng-content>

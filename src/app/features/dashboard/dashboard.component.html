@@ -1,7 +1,7 @@
 <div class="mt-5">
   <app-port-selector></app-port-selector>
   <div class="mt-5">
-    <app-day-selector></app-day-selector>
+    <app-day-selector (selection)="onDaySelected($event)"></app-day-selector>
   </div>
   <app-fish-selector [(speciesSelected)]="selectedSpecies"></app-fish-selector>
   <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch mt-5">
@@ -33,4 +33,3 @@
     ></app-score-hourly>
   </div>
 </div>
-

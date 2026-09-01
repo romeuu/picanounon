@@ -22,23 +22,37 @@ export class ForecastService {
   readonly isLoading = signal<boolean>(false);
   readonly error = signal<string | null>(null);
 
-  loadForecastForPort(port: Port): void {
+  loadForecastForPort(port: Port, targetDate?: Date): void {
     this.isLoading.set(true);
     this.error.set(null);
+
+    const refDate = targetDate ?? new Date();
+    const targetDateStr = this.formatDateToLocalIso(refDate);
 
     forkJoin({
       weather: this._marineWeatherService.getForecast(port.lat, port.lng),
       tides: this._tideService
-        .getTidesByPort(port.id)
+        .getTidesByPort(port.id, targetDateStr)
         .pipe(catchError(() => of([]))),
     }).subscribe({
       next: ({ weather: data, tides }) => {
         const result: HourlyForecast[] = [];
-        const totalHours = Math.min(24, data.time.length);
+        
+        // Atopar todos os índices de previsión que coinciden coa data seleccionada
+        const matchingIndices: number[] = [];
+        for (let i = 0; i < data.time.length; i++) {
+          if (data.time[i].startsWith(targetDateStr)) {
+            matchingIndices.push(i);
+          }
+        }
 
-        console.log(data);
+        // Se non se atopan pola coincidencia de data exacta, usar as primeiras 24 horas
+        const indicesToProcess =
+          matchingIndices.length > 0
+            ? matchingIndices
+            : Array.from({ length: Math.min(24, data.time.length) }, (_, i) => i);
 
-        for (let i = 0; i < totalHours; i++) {
+        for (const i of indicesToProcess) {
           const rawTime = data.time[i];
           const dateObj = new Date(rawTime);
 
@@ -86,7 +100,9 @@ export class ForecastService {
                   ? TidePhase.PREAMAR
                   : TidePhase.BAIXAMAR;
               } else {
-                tidePhase = isTideRising ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
+                tidePhase = isTideRising
+                  ? TidePhase.ENCHENTE
+                  : TidePhase.MINGUANTE;
               }
             }
           } else {
@@ -150,6 +166,7 @@ export class ForecastService {
 
           result.push({
             time: rawTime.substring(11, 16),
+            dateTime: rawTime,
             waveHeight: conditions.waveHeight,
             wavePeriod: conditions.wavePeriod,
             windSpeed: conditions.windSpeed,
@@ -172,5 +189,12 @@ export class ForecastService {
         this.isLoading.set(false);
       },
     });
+  }
+
+  private formatDateToLocalIso(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }

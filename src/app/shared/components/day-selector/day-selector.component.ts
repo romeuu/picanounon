@@ -1,4 +1,4 @@
-import { Component, OnInit, output, signal } from '@angular/core';
+import { Component, model, OnInit, output, signal } from '@angular/core';
 import { GalicianSelectorDayPipe } from '../../pipes/galician-selector-day.pipe';
 import { UiPillComponent } from '../ui-pill/ui-pill.component';
 
@@ -11,13 +11,15 @@ import { UiPillComponent } from '../ui-pill/ui-pill.component';
 })
 export class DaySelectorComponent implements OnInit {
   nextDays = signal<Date[]>([]);
-  daySelected = signal<Date | undefined>(undefined);
+  daySelected = model<Date | undefined>(undefined);
   selection = output<Date>();
 
   ngOnInit(): void {
     const following = this.getFollowingDays();
     this.nextDays.set(following);
-    this.daySelected.set(following[0]);
+    if (!this.daySelected()) {
+      this.daySelected.set(following[0]);
+    }
   }
 
   getFollowingDays(): Date[] {

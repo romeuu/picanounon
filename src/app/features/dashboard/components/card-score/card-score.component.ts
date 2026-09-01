@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, effect, input, Input, signal } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 import { TargetSpecies } from '../../../../core/models/enums/species.enum';
 import { HourlyForecast } from '../../../../core/models/interfaces/hourly-forecast.model';
 import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.component';
@@ -48,8 +48,8 @@ export class CardScoreComponent {
   }
 
   get scoreColorClass(): string {
-    if (this.score() >= 65) return 'text-[#2dd4bf]';
-    if (this.score() >= 40) return 'text-[#facc15]';
-    return 'text-[#f87171]';
+    if (this.score() >= 65) return 'text-green';
+    if (this.score() >= 40) return 'text-yellow';
+    return 'text-red';
   }
 }

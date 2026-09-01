@@ -4,14 +4,18 @@
     class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 transition-opacity duration-200"
   >
     <div
-      class="w-full bg-[#132036] border border-[#21324d] rounded-2xl shadow-2xl flex flex-col max-h-[85vh] font-mono text-white overflow-hidden transition-all duration-200"
+      class="w-full bg-gray border border-gray-light/30 rounded-2xl shadow-2xl flex flex-col max-h-[85vh] font-mono text-white overflow-hidden transition-all duration-200"
       [ngClass]="maxWidthClass"
     >
       <!-- Header do Modal -->
       @if (title) {
-        <div class="p-4 border-b border-[#21324d] flex justify-between items-center bg-[#060d1b]/30">
+        <div
+          class="p-4 border-b border-gray-light/30 flex justify-between items-center bg-gray/50"
+        >
           <div class="flex items-center gap-2">
-            <span class="text-xs uppercase tracking-widest text-[#94a3b8] font-bold">
+            <span
+              class="text-xs uppercase tracking-widest text-gray-light font-bold"
+            >
               // {{ title }}
             </span>
             <ng-content select="[modal-header]"></ng-content>
@@ -19,7 +23,7 @@
           <button
             type="button"
             (click)="closed.emit()"
-            class="text-[#94a3b8] hover:text-white text-xs px-2.5 py-1 rounded-xl border border-[#21324d] hover:border-[#334b73] transition-colors cursor-pointer"
+            class="text-gray-light hover:text-white text-xs px-2.5 py-1 rounded-xl border border-gray-light/30 hover:border-gray-light transition-colors cursor-pointer"
           >
             [ESC / PECHAR]
           </button>
@@ -32,7 +36,7 @@
       </div>
 
       <!-- Pe do Modal (Opcional) -->
-      <div class="empty:hidden border-t border-[#21324d] p-4 bg-[#060d1b]/30">
+      <div class="empty:hidden border-t border-gray-light/30 p-4 bg-gray/50">
         <ng-content select="[modal-footer]"></ng-content>
       </div>
     </div>

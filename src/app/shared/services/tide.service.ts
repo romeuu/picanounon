@@ -19,12 +19,13 @@ export class TideService {
 
   getTidesByPort(id: number, dateStr?: string): Observable<TideResponse[]> {
     const today = new Date();
-    const targetDate = dateStr ?? today.toISOString().split('T')[0];
+    const targetDate = dateStr ?? this.formatDateToLocalIso(today);
 
-    const dateObj = new Date(targetDate);
+    const [y, m, d] = targetDate.split('-').map(Number);
+    const dateObj = new Date(y, m - 1, d);
     const nextDayObj = new Date(dateObj);
     nextDayObj.setDate(nextDayObj.getDate() + 1);
-    const nextDateStr = nextDayObj.toISOString().split('T')[0];
+    const nextDateStr = this.formatDateToLocalIso(nextDayObj);
 
     const currentDayUrl = `${this.API_URL}/port/${id}?date=${targetDate}`;
     const nextDayUrl = `${this.API_URL}/port/${id}?date=${nextDateStr}`;
@@ -42,17 +43,43 @@ export class TideService {
           throw new Error('Non hai datos de marea dispoñibles para este porto');
         }
         this.currentTides.set(combined);
-        this.currentTideStatus.set(this.calculateCurrentDataTide(combined));
+        this.currentTideStatus.set(this.calculateCurrentDataTide(combined, dateObj));
         return combined;
       }),
     );
   }
 
-  calculateCurrentDataTide(data: TideResponse[]): CurrentTideStatus | null {
+  private formatDateToLocalIso(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  calculateCurrentDataTide(
+    data: TideResponse[],
+    targetDate?: Date,
+  ): CurrentTideStatus | null {
     if (!data || data.length === 0) return null;
 
     const now = new Date();
-    const nowMs = now.getTime();
+    let refDate = now;
+    if (targetDate) {
+      const isToday =
+        targetDate.getFullYear() === now.getFullYear() &&
+        targetDate.getMonth() === now.getMonth() &&
+        targetDate.getDate() === now.getDate();
+      if (!isToday) {
+        refDate = new Date(
+          targetDate.getFullYear(),
+          targetDate.getMonth(),
+          targetDate.getDate(),
+          now.getHours(),
+          now.getMinutes(),
+        );
+      }
+    }
+    const nowMs = refDate.getTime();
 
     // 1. Asegurar orde cronolóxica con timestamps absolutos
     const sortedData = [...data].sort(
@@ -86,7 +113,7 @@ export class TideService {
     const currentHeight = this.calcularAlturaMareaActual(
       previousTide,
       nextTide,
-      now,
+      refDate,
     );
 
     // 4. Determinar se a marea está subindo ou baixando

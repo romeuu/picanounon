@@ -1,5 +1,6 @@
 export interface HourlyForecast {
   time: string;
+  dateTime?: string;
   waveHeight: number;
   wavePeriod: number;
   windSpeed: number;
@@ -12,4 +13,5 @@ export interface HourlyForecast {
   tideHeight?: number;
   isTideRising?: boolean;
 }
+
 
