@@ -1,0 +1,18 @@
+@if (isLoading()) {
+  <div
+    class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 font-mono"
+  >
+    <div
+      class="bg-gray border border-gray-light/30 rounded-2xl p-5 shadow-2xl flex items-center gap-4 text-white"
+    >
+      <!-- Spinner retro/clásico con bordes sólidos do tema -->
+      <div
+        class="w-6 h-6 border-2 border-gray-light/30 border-t-orange rounded-full animate-spin"
+      ></div>
+
+      <span class="text-xs uppercase tracking-widest text-gray-light font-bold">
+        CARGANDO...
+      </span>
+    </div>
+  </div>
+}

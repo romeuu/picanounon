@@ -5,6 +5,10 @@ export interface MarineConditions {
   wavePeriod: number; // Período de pico (Tp en segundos)
   windSpeed: number; // Velocidade do vento en km/h
   tidePhase: TidePhase;
+  tideHeight?: number; // Altura instantánea da marea en metros
+  tideStatus?: 'SUBINDO' | 'BAIXANDO';
   isCrepuscular: boolean; // Amencer ou serán
   isDaylight: boolean;
+  waterTemperature: number;
+  temperature: number;
 }

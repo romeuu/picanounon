@@ -1,0 +1,12 @@
+<button
+  type="button"
+  (click)="clicked.emit()"
+  class="px-2 py-1 text-xs uppercase tracking-wider font-bold rounded-xl border transition-all duration-150 gap-2 cursor-pointer font-mono mx-1"
+  [ngClass]="{
+    'bg-orange border-orange text-white shadow-md shadow-orange/20': selected,
+    'bg-gray border-gray-light/30 text-gray-light hover:border-gray-light hover:text-white':
+      !selected,
+  }"
+>
+  <ng-content></ng-content>
+</button>

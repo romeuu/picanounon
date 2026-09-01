@@ -1,0 +1,44 @@
+@if (isOpen) {
+  <div
+    (click)="onBackdropClick($event)"
+    class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 transition-opacity duration-200"
+  >
+    <div
+      class="w-full bg-gray border border-gray-light/30 rounded-2xl shadow-2xl flex flex-col max-h-[85vh] font-mono text-white overflow-hidden transition-all duration-200"
+      [ngClass]="maxWidthClass"
+    >
+      <!-- Header do Modal -->
+      @if (title) {
+        <div
+          class="p-4 border-b border-gray-light/30 flex justify-between items-center bg-gray/50"
+        >
+          <div class="flex items-center gap-2">
+            <span
+              class="text-xs uppercase tracking-widest text-gray-light font-bold"
+            >
+              // {{ title }}
+            </span>
+            <ng-content select="[modal-header]"></ng-content>
+          </div>
+          <button
+            type="button"
+            (click)="closed.emit()"
+            class="text-gray-light hover:text-white text-xs px-2.5 py-1 rounded-xl border border-gray-light/30 hover:border-gray-light transition-colors cursor-pointer"
+          >
+            [ESC / PECHAR]
+          </button>
+        </div>
+      }
+
+      <!-- Corpo do Modal -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4">
+        <ng-content></ng-content>
+      </div>
+
+      <!-- Pe do Modal (Opcional) -->
+      <div class="empty:hidden border-t border-gray-light/30 p-4 bg-gray/50">
+        <ng-content select="[modal-footer]"></ng-content>
+      </div>
+    </div>
+  </div>
+}

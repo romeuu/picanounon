@@ -1,0 +1,123 @@
+<app-ui-card [title]="'PUNTUACIÓN ' + selectedSpecies()">
+  <span
+    card-action
+    (click)="isModalOpen.set(true)"
+    class="cursor-pointer hover:opacity-100 opacity-70 transition-opacity p-1 -m-1"
+    title="Como funciona o algoritmo de puntuación?"
+  >
+    <img
+      src="assets/info.svg"
+      alt="Info"
+      class="w-4 h-4 filter invert opacity-80"
+    />
+  </span>
+  <div
+    class="flex items-center justify-between gap-2 my-auto py-3 min-w-0 overflow-hidden"
+  >
+    <img
+      [src]="fishIcon"
+      [alt]="selectedSpecies()"
+      class="h-16 lg:h-20 max-w-[45%] object-contain filter invert brightness-200 shrink-0"
+    />
+    <div
+      class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-mono shrink-0"
+      [ngClass]="scoreColorClass"
+    >
+      {{ score()
+      }}<span class="text-xs sm:text-sm font-normal text-gray-light">/100</span>
+    </div>
+  </div>
+</app-ui-card>
+
+<!-- Modal Explicativo do Algoritmo de Scoring -->
+<app-ui-modal
+  [isOpen]="isModalOpen()"
+  title="CRITERIOS DE PUNTUACIÓN"
+  maxWidth="md"
+  (closed)="isModalOpen.set(false)"
+>
+  <div class="space-y-4 font-mono text-xs text-white">
+    <!-- Descrición xeral -->
+    <div class="text-white leading-relaxed">
+      A puntuación calcula en tempo real a probabilidade de actividade e pesca
+      óptima para cada especie (<span class="text-orange font-bold">{{
+        selectedSpecies()
+      }}</span
+      >), cruzando as variables oceanográficas e meteorolóxicas cos seus hábitos
+      biolóxicos e de caza.
+    </div>
+
+    <!-- Factores ponderados -->
+    <div class="space-y-2">
+      <div
+        class="text-[10px] text-gray-light uppercase tracking-widest font-bold"
+      >
+        [FACTORES PONDERADOS NO CÁLCULO]
+      </div>
+
+      <div
+        class="divide-y divide-gray-light/20 border border-gray-light/30 rounded-xl overflow-hidden bg-gray/40"
+      >
+        <div class="p-3">
+          <div class="text-white font-bold">ESTADO DO MAR</div>
+          <div class="text-[11px] text-gray-light mt-0.5">
+            Altura da onda e período para avaliar a formación de escumeiro,
+            osixenación e forza da rompente.
+          </div>
+        </div>
+
+        <div class="p-3">
+          <div class="text-white font-bold">MAREA E CORRENTE</div>
+          <div class="text-[11px] text-gray-light mt-0.5">
+            Comportamento segundo a fase de marea (subida, baixada ou repunta) e
+            o desprazamento de presas.
+          </div>
+        </div>
+
+        <div class="p-3">
+          <div class="text-white font-bold">MOMENTO SOLAR E LUZ</div>
+          <div class="text-[11px] text-gray-light mt-0.5">
+            Horas de amencer e serán (crepúsculo), actividade nocturna ou pleno
+            día segundo a especie.
+          </div>
+        </div>
+
+        <div class="p-3">
+          <div class="text-white font-bold">TEMPERATURA (AUGA E AIRE)</div>
+          <div class="text-[11px] text-gray-light mt-0.5">
+            Rango térmico da superficie mariña e da contorna para a presenza e
+            apetito dos exemplares.
+          </div>
+        </div>
+
+        <div class="p-3">
+          <div class="text-white font-bold">VENTO</div>
+          <div class="text-[11px] text-gray-light mt-0.5">
+            Intensidade en superficie para crear o rizo axeitado na auga sen
+            dificultar a pesca.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Regra de seguridade -->
+    <div
+      class="p-3 border border-gray-light/30 rounded-xl bg-gray/40 flex justify-between items-center text-[11px]"
+    >
+      <span class="text-gray-light">[SEGURIDADE NA COSTA]</span>
+      <span class="text-gray-light"
+        >Condicións de perigo ou golpe de mar reducen o score de xeito
+        preventivo.</span
+      >
+    </div>
+
+    <!-- Escala de interpretación -->
+    <div
+      class="pt-2 border-t border-gray-light/30 flex justify-between items-center text-[11px]"
+    >
+      <span class="text-green font-bold">&ge; 65: FAVORABLE</span>
+      <span class="text-yellow font-bold">40 - 64: REGULAR</span>
+      <span class="text-red font-bold">&lt; 40: DESFAVORABLE</span>
+    </div>
+  </div>
+</app-ui-modal>

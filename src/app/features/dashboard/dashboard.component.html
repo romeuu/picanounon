@@ -1,174 +1,35 @@
-<!-- Selector de Porto e Especie Estilo Consola -->
-<section class="flex flex-col sm:flex-row gap-3">
-  <div class="relative flex-1">
-    <label class="block text-xs uppercase text-neutral-400 tracking-wider mb-1"
-      >Localización</label
-    >
-    <app-port-selector class="w-full"></app-port-selector>
+<div class="mt-5">
+  <app-port-selector></app-port-selector>
+  <div class="mt-5">
+    <app-day-selector (selection)="onDaySelected($event)"></app-day-selector>
   </div>
-  <div class="sm:w-36">
-    <label class="block text-xs uppercase text-neutral-400 tracking-wider mb-1"
-      >Zona</label
-    >
-    <div
-      class="bg-neutral-900 border border-neutral-800 px-3 py-2 text-sm text-neutral-400"
-    >
-      @if (selectedPort(); as port) {
-        {{ port.zone }}
-      }
-    </div>
-  </div>
-</section>
-
-<!-- Selector de Especie (Pestañas) -->
-<section class="mt-4">
-  <label class="block text-xs uppercase text-neutral-400 tracking-wider mb-1"
-    >Especie Obxectivo</label
-  >
-  <div class="flex gap-2">
-    @for (sp of speciesOptions; track sp.key) {
-      <button
-        type="button"
-        (click)="selectSpecies(sp.key)"
-        class="flex-1 py-2 px-3 text-xs uppercase tracking-wider font-semibold border transition-colors duration-150"
-        [ngClass]="{
-          'bg-neutral-800 border-emerald-500 text-emerald-400': selectedSpecies() === sp.key,
-          'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-700 hover:text-neutral-200': selectedSpecies() !== sp.key
-        }"
-      >
-        {{ sp.label }}
-      </button>
-    }
-  </div>
-</section>
-
-<!-- Tarxeta Principal: Veredicto Instantáneo -->
-<section class="border border-neutral-800 bg-neutral-900 p-5 space-y-4 mt-5">
-  @if (isLoading()) {
-    <div class="text-xs text-neutral-400 py-6 text-center animate-pulse">
-      Cargando estado actual de Open-Meteo...
-    </div>
-  } @else if (currentForecast(); as current) {
-    <div class="flex justify-between items-start">
-      <span class="text-xs uppercase tracking-widest text-neutral-400">
-        [ESTADO ACTUAL // {{ current.time }}]
-      </span>
-      <span
-        class="px-2 py-0.5 text-xs font-semibold border"
-        [ngClass]="badgeClassByScore(getScoreForSpecies(current, selectedSpecies()))"
-      >
-        {{ selectedSpecies() }}: {{ getScoreForSpecies(current, selectedSpecies()) }}/100
-      </span>
+  <app-fish-selector [(speciesSelected)]="selectedSpecies"></app-fish-selector>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch mt-5">
+    <div class="md:col-span-3">
+      <app-card-score
+        [selectedSpecies]="selectedSpecies()"
+        [forecast]="currentForecast()"
+      ></app-card-score>
     </div>
 
-    <!-- Desglose de Puntuación por Especie -->
-    <div class="grid grid-cols-3 gap-2 p-3 bg-neutral-950/60 border border-neutral-800/80 rounded-sm">
-      @for (sp of speciesOptions; track sp.key) {
-        <button
-          type="button"
-          (click)="selectSpecies(sp.key)"
-          class="text-left p-1.5 rounded border transition-colors"
-          [ngClass]="{
-            'border-neutral-700 bg-neutral-900': selectedSpecies() === sp.key,
-            'border-transparent hover:bg-neutral-900/50': selectedSpecies() !== sp.key
-          }"
-        >
-          <div class="text-[10px] text-neutral-400 uppercase tracking-wider">{{ sp.label }}</div>
-          <div
-            class="text-base font-bold"
-            [ngClass]="colorByScore(getScoreForSpecies(current, sp.key))"
-          >
-            {{ getScoreForSpecies(current, sp.key) }}<span class="text-xs font-normal text-neutral-500">/100</span>
-          </div>
-        </button>
-      }
+    <div class="md:col-span-6">
+      <app-info-card
+        [forecast]="currentForecast()"
+        [port]="selectedPort()"
+      ></app-info-card>
     </div>
 
-    <div
-      class="grid grid-cols-2 md:grid-cols-4 gap-4 py-2 border-y border-neutral-800/80"
-    >
-      <div>
-        <div class="text-xs text-neutral-400 uppercase">Ondada</div>
-        <div class="text-lg font-bold text-neutral-100">
-          {{ current.waveHeight }} <span class="text-xs font-normal text-neutral-400">m</span>
-        </div>
-      </div>
-      <div>
-        <div class="text-xs text-neutral-400 uppercase">Período</div>
-        <div class="text-lg font-bold text-neutral-100">
-          {{ current.wavePeriod }} <span class="text-xs font-normal text-neutral-400">s</span>
-        </div>
-      </div>
-      <div>
-        <div class="text-xs text-neutral-400 uppercase">Seguridade</div>
-        <div
-          class="text-lg font-bold"
-          [class.text-emerald-400]="current.isSafe"
-          [class.text-rose-400]="!current.isSafe"
-        >
-          {{ current.isSafe ? 'SEGURO' : 'PERIGO' }}
-        </div>
-      </div>
-      <div>
-        <div class="text-xs text-neutral-400 uppercase">Vento</div>
-        <div class="text-lg font-bold text-neutral-100">
-          {{ current.windSpeed }} <span class="text-xs font-normal text-neutral-400">km/h</span>
-        </div>
-      </div>
+    <div class="md:col-span-3">
+      <app-temperature-card
+        [forecast]="currentForecast()"
+      ></app-temperature-card>
     </div>
-
-    <!-- Alerta de Seguridade Monocroma -->
-    <div class="text-xs text-neutral-300 flex items-center gap-2">
-      <span class="text-neutral-500">▶</span>
-      <span>
-        @if (!current.isSafe) {
-          ⚠️ Mar excesivo na pedra. Condicións perigosas para o marisqueo / pesca.
-        } @else if (getScoreForSpecies(current, selectedSpecies()) >= 75) {
-          Condicións óptimas para a pesca de {{ selectedSpecies() | lowercase }}.
-        } @else {
-          Condicións regulares para {{ selectedSpecies() | lowercase }}. Extreme as precaucións.
-        }
-      </span>
-    </div>
-  } @else {
-    <div class="text-xs text-neutral-500 py-4 text-center">
-      Selecciona un porto para ver o estado actual.
-    </div>
-  }
-</section>
-
-<!-- Liña Temporal Horaria Compacta -->
-<section class="space-y-2 mt-5">
-  <div class="flex justify-between items-center">
-    <h2 class="text-xs uppercase tracking-widest text-neutral-400">
-      [PREDICIÓN PRÓXIMAS HORAS // {{ selectedSpecies() }}]
-    </h2>
   </div>
 
-  @if (isLoading()) {
-    <div class="text-xs text-neutral-400 py-4">Cargando predición...</div>
-  } @else if (upcomingForecast().length > 0) {
-    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
-      @for (hour of upcomingForecast(); track hour.time) {
-        <div
-          class="border border-neutral-800 bg-neutral-900 p-2 text-center space-y-1"
-        >
-          <div class="text-xs text-neutral-400">{{ hour.time }}</div>
-          <div
-            class="text-sm font-bold"
-            [ngClass]="colorByScore(getScoreForSpecies(hour, selectedSpecies()))"
-          >
-            {{ getScoreForSpecies(hour, selectedSpecies()) }}
-          </div>
-          <div class="text-[10px] text-neutral-400">
-            {{ hour.waveHeight }}m · {{ hour.wavePeriod }}s
-          </div>
-        </div>
-      }
-    </div>
-  } @else {
-    <div class="text-xs text-neutral-500 py-4">
-      Selecciona un porto para ver a predición.
-    </div>
-  }
-</section>
+  <div class="mt-5">
+    <app-score-hourly
+      [forecasts]="upcomingForecast()"
+      [selectedSpecies]="selectedSpecies()"
+    ></app-score-hourly>
+  </div>
+</div>

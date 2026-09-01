@@ -7,6 +7,16 @@
       "Liberation Mono", "Courier New", monospace;
   }
 
+  html {
+    font-size: 18px;
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
   html,
   body,
   input,
@@ -17,50 +27,59 @@
   }
 
   body {
-    background-color: #0a0a0a;
+    background-color: #031437;
     color: #f5f5f5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 
   /* Modo Claro */
   html.light body {
-    background-color: #f8fafc;
+    background-color: #f1f5f9;
     color: #0f172a;
   }
 
-  html.light .bg-neutral-900 {
+  /* Tarxetas e contedores con fondo branco no modo claro */
+  html.light .bg-gray {
     background-color: #ffffff !important;
   }
-  html.light .bg-neutral-950 {
-    background-color: #f1f5f9 !important;
-  }
-  html.light .bg-neutral-950\/60 {
+  html.light .bg-gray\/40,
+  html.light .bg-gray\/50 {
     background-color: #f8fafc !important;
   }
-  html.light .bg-neutral-800 {
+  html.light .bg-gray-light\/20 {
     background-color: #e2e8f0 !important;
   }
-  html.light .border-neutral-800,
-  html.light .border-neutral-800\/80 {
+  html.light .hover\:bg-gray-light\/10:hover {
+    background-color: #f1f5f9 !important;
+  }
+
+  /* Bordes no modo claro */
+  html.light .border-gray,
+  html.light .border-gray-light\/30,
+  html.light .border-gray-light\/20 {
     border-color: #cbd5e1 !important;
   }
-  html.light .text-neutral-400 {
-    color: #64748b !important;
+  html.light .hover\:border-gray-light:hover {
+    border-color: #94a3b8 !important;
   }
-  html.light .text-neutral-300 {
-    color: #334155 !important;
-  }
-  html.light .text-neutral-100,
+
+  /* Textos no modo claro */
   html.light .text-white {
     color: #0f172a !important;
   }
-  html.light .hover\:bg-neutral-800:hover {
-    background-color: #e2e8f0 !important;
+  html.light .text-gray-light {
+    color: #64748b !important;
   }
-  html.light .hover\:border-neutral-700:hover {
-    border-color: #94a3b8 !important;
+
+  /* Iconas SVG: eliminar invert en modo claro para que sexan escuras */
+  html.light img.filter.invert,
+  html.light img.filter.invert.brightness-200 {
+    filter: brightness(0.2) !important;
+    opacity: 0.85 !important;
   }
 
   /* Barra de desprazamento minimalista e discreta */
@@ -86,4 +105,13 @@
   html.light ::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
   }
+}
+
+@theme {
+  --color-orange: #ff6b4a;
+  --color-green: #10b981;
+  --color-yellow: #ffe761;
+  --color-red: #ff6161;
+  --color-gray: #1e293b;
+  --color-gray-light: #7e8a9e;
 }

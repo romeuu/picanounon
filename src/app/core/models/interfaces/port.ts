@@ -8,4 +8,6 @@ export interface Port {
   zone: Zone;
   lat: number;
   lng: number;
+  tideStation: string;
+  tideOffsetMinutes: number;
 }

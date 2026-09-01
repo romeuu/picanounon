@@ -1,0 +1,59 @@
+<app-ui-card [title]="'INFORMACIÓN ACTUAL'">
+  <div class="grid grid-cols-3 gap-y-6 gap-x-4">
+    <!-- Fila 1 -->
+    <div>
+      <h3 class="text-orange text-xs font-bold uppercase tracking-wider">
+        ONDADA
+      </h3>
+      <p class="text-white text-xl font-bold mt-1">
+        {{ forecast()?.waveHeight }} m
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-orange text-xs font-bold uppercase tracking-wider">
+        PERÍODO
+      </h3>
+      <p class="text-white text-xl font-bold mt-1">
+        {{ forecast()?.wavePeriod }} s
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-orange text-xs font-bold uppercase tracking-wider">
+        ALTURA MAREA
+      </h3>
+      <p class="text-white text-xl font-bold mt-1">
+        {{ tideStatus()?.currentHeight }} m
+      </p>
+    </div>
+
+    <!-- Fila 2 -->
+    <div>
+      <h3 class="text-orange text-xs font-bold uppercase tracking-wider">
+        SEGURIDADE
+      </h3>
+      <p class="text-white text-xl font-bold mt-1">
+        {{ forecast()?.isSafe ? "Seguro" : "Perigoso" }}
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-orange text-xs font-bold uppercase tracking-wider">
+        VENTO
+      </h3>
+      <p class="text-white text-xl font-bold mt-1">
+        {{ forecast()?.windSpeed }} km/h
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-orange text-xs font-bold uppercase tracking-wider">
+        ESTADO MAREA
+      </h3>
+      <p class="text-white text-xl font-bold mt-1">
+        {{ tideStatus()?.status }}
+      </p>
+    </div>
+  </div>
+</app-ui-card>
