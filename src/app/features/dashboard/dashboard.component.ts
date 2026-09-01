@@ -9,6 +9,7 @@ import { PortSelectorComponent } from '../../shared/components/port-selector/por
 import { ForecastService } from '../../shared/services/forecast.service';
 import { CardScoreComponent } from './components/card-score/card-score.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
+import { ScoreHourlyComponent } from './components/score-hourly/score-hourly.component';
 import { TemperatureCardComponent } from './components/temperature-card/temperature-card.component';
 
 @Component({
@@ -22,6 +23,7 @@ import { TemperatureCardComponent } from './components/temperature-card/temperat
     CardScoreComponent,
     InfoCardComponent,
     TemperatureCardComponent,
+    ScoreHourlyComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

@@ -114,7 +114,7 @@ export class TideService {
     return response;
   }
 
-  private calcularAlturaMareaActual(
+  calcularAlturaMareaActual(
     anterior: TideResponse,
     seguinte: TideResponse,
     agora: Date,

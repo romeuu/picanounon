@@ -111,7 +111,7 @@ export class ScoringService {
           windScore = 10;
         } else if (windSpeed < 8) {
           windScore = 7;
-        } else if (windSpeed <= 25) {
+        } else if (windSpeed > 20 && windSpeed <= 25) {
           windScore = 3;
         } else {
           windScore = 0;
@@ -154,6 +154,8 @@ export class ScoringService {
             waterTempScore = 15;
           } else if (waterTemperature >= 11 && waterTemperature < 13) {
             waterTempScore = 7;
+          } else if (waterTemperature > 17 && waterTemperature <= 20) {
+            waterTempScore = 4;
           } else {
             waterTempScore = 0;
           }

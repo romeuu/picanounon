@@ -25,4 +25,12 @@
       ></app-temperature-card>
     </div>
   </div>
+
+  <div class="mt-5">
+    <app-score-hourly
+      [forecasts]="upcomingForecast()"
+      [selectedSpecies]="selectedSpecies()"
+    ></app-score-hourly>
+  </div>
 </div>
+

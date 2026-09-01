@@ -1,13 +1,14 @@
 import { NgClass } from '@angular/common';
 import { Component, effect, input, Input, signal } from '@angular/core';
 import { TargetSpecies } from '../../../../core/models/enums/species.enum';
-import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.component';
 import { HourlyForecast } from '../../../../core/models/interfaces/hourly-forecast.model';
+import { UiCardComponent } from '../../../../shared/components/ui-card/ui-card.component';
+import { UiModalComponent } from '../../../../shared/components/ui-modal/ui-modal.component';
 
 @Component({
   selector: 'app-card-score',
   standalone: true,
-  imports: [UiCardComponent, NgClass],
+  imports: [UiCardComponent, UiModalComponent, NgClass],
   host: {
     class: 'block h-full min-w-0',
   },
@@ -18,6 +19,7 @@ export class CardScoreComponent {
   selectedSpecies = input<TargetSpecies | string>(TargetSpecies.SARGOS);
   forecast = input.required<HourlyForecast | null>();
   score = signal<number>(0);
+  isModalOpen = signal<boolean>(false);
 
   constructor() {
     effect(() => {

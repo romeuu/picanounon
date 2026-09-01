@@ -1,0 +1,79 @@
+<div class="space-y-3 font-mono">
+  <h3 class="text-xs uppercase tracking-widest text-[#94a3b8] font-bold">
+    PUNTUACIÓN POR HORAS
+  </h3>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-3 sm:gap-4">
+    @for (item of forecasts(); track item.time) {
+      <div class="bg-[#132036] border border-[#21324d] rounded-2xl p-4 flex flex-col items-center justify-between text-center transition-colors">
+        <!-- Hora -->
+        <span class="text-xs sm:text-sm text-[#cbd5e1] font-medium tracking-wider">
+          {{ item.time }}
+        </span>
+
+        <!-- Puntuación grande destacada -->
+        <span
+          class="text-3xl sm:text-4xl font-extrabold my-2.5"
+          [ngClass]="getScoreColorClass(getScore(item))"
+        >
+          {{ getScore(item) }}
+        </span>
+
+        <!-- Métricas con iconas semánticas -->
+        <div class="space-y-1.5 text-xs text-[#cbd5e1] w-full font-mono">
+          <!-- Ondada e período -->
+          <div class="flex items-center justify-center gap-1.5">
+            <span>🌊</span>
+            <span class="font-bold text-white">{{ item.waveHeight }}m</span>
+            <span class="text-[#94a3b8]">({{ item.wavePeriod }}s)</span>
+          </div>
+
+          <!-- Marea e Vento -->
+          <div class="flex items-center justify-center gap-2">
+            @if (item.tideHeight !== undefined) {
+              <div class="flex items-center gap-1">
+                <span class="text-[10px] {{ item.isTideRising ? 'text-emerald-400' : 'text-blue-400' }}">
+                  {{ item.isTideRising ? '▲' : '▼' }}
+                </span>
+                <span>{{ item.tideHeight }}m</span>
+              </div>
+              <span class="text-[#94a3b8]">&middot;</span>
+            }
+            <div class="flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-[#94a3b8] fill-none stroke-current stroke-2 shrink-0" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+              </svg>
+              <span>{{ item.windSpeed }}km/h</span>
+            </div>
+          </div>
+
+          <!-- Temperaturas (Aire / Auga) con iconas -->
+          <div class="flex items-center justify-center gap-3 pt-1.5 border-t border-[#21324d]/60 text-[11px] text-[#94a3b8]">
+            <div class="flex items-center gap-1">
+              <img
+                src="assets/prevision-tiempo.svg"
+                alt="Aire"
+                class="w-3.5 h-3.5 object-contain filter invert brightness-200 opacity-80"
+              />
+              <span>{{ item.temperature }}°</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <img
+                src="assets/temperatura-agua.svg"
+                alt="Auga"
+                class="w-3.5 h-3.5 object-contain filter invert brightness-200 opacity-80"
+              />
+              <span>{{ item.seaTemperature }}°</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-span-full py-6 text-center text-[#94a3b8] text-sm font-mono">
+        Non hai máis previsións dispoñibles para as horas restantes de hoxe.
+      </div>
+    }
+  </div>
+</div>
+
+

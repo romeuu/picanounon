@@ -45,6 +45,7 @@ export class ForecastService {
           // Determinar a fase de marea cos datos reais de marea se están dispoñibles
           let tidePhase = TidePhase.ENCHENTE;
           let tideHeight: number | undefined;
+          let isTideRising: boolean | undefined;
 
           if (tides && tides.length > 0) {
             // Atopar a marea máis próxima antes e despois do tempo actual da hora
@@ -61,7 +62,12 @@ export class ForecastService {
             if (nextIdx > 0) {
               const prevTide = sortedTides[nextIdx - 1];
               const nextTide = sortedTides[nextIdx];
-              const isRising = nextTide.height > prevTide.height;
+              isTideRising = nextTide.height > prevTide.height;
+              tideHeight = this._tideService.calcularAlturaMareaActual(
+                prevTide,
+                nextTide,
+                dateObj,
+              );
 
               // Se falta menos de 45 min para un pico de marea, consideramos ese pico
               const diffPrevMinutes =
@@ -80,12 +86,13 @@ export class ForecastService {
                   ? TidePhase.PREAMAR
                   : TidePhase.BAIXAMAR;
               } else {
-                tidePhase = isRising ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
+                tidePhase = isTideRising ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
               }
             }
           } else {
             // Fallback se non hai datos de mareas
             const hourNum = dateObj.getHours();
+            isTideRising = hourNum % 12 < 6;
             tidePhase =
               hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
           }
@@ -152,6 +159,8 @@ export class ForecastService {
             scoreAgullas: agullaRes.score,
             seaTemperature: conditions.waterTemperature,
             temperature: conditions.temperature,
+            tideHeight,
+            isTideRising,
           });
         }
 
