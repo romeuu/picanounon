@@ -21,6 +21,7 @@ export class ScoreHourlyComponent {
     const sp = (this.selectedSpecies() || '').toUpperCase();
     if (sp.includes('ROBALIZA')) return item.scoreRobaliza;
     if (sp.includes('AGULLA')) return item.scoreAgullas;
+    if (sp.includes('XARDA')) return item.scoreXardas;
     return item.scoreSargos;
   }
 
@@ -30,5 +31,3 @@ export class ScoreHourlyComponent {
     return 'text-red';
   }
 }
-
-

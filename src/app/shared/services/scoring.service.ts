@@ -7,18 +7,22 @@ import { AgullaScoringService } from './scoring/agulla-scoring.service';
 import { RobalizaScoringService } from './scoring/robaliza-scoring.service';
 import { SargoScoringService } from './scoring/sargo-scoring.service';
 import { SpeciesScoringStrategy } from './scoring/species-scoring.interface';
+import { XardaScoringService } from './scoring/xarda-scoring.service';
 
 @Injectable({ providedIn: 'root' })
 export class ScoringService {
   private readonly _sargoScoring = inject(SargoScoringService);
   private readonly _robalizaScoring = inject(RobalizaScoringService);
   private readonly _agullaScoring = inject(AgullaScoringService);
+  private readonly _xardaScoring = inject(XardaScoringService);
 
-  private readonly _strategies: Record<TargetSpecies, SpeciesScoringStrategy> = {
-    [TargetSpecies.SARGOS]: this._sargoScoring,
-    [TargetSpecies.ROBALIZA]: this._robalizaScoring,
-    [TargetSpecies.AGULLAS]: this._agullaScoring,
-  };
+  private readonly _strategies: Record<TargetSpecies, SpeciesScoringStrategy> =
+    {
+      [TargetSpecies.SARGOS]: this._sargoScoring,
+      [TargetSpecies.ROBALIZA]: this._robalizaScoring,
+      [TargetSpecies.AGULLAS]: this._agullaScoring,
+      [TargetSpecies.XARDA]: this._xardaScoring,
+    };
 
   /**
    * Densidade de fluxo de enerxía da onda: P ≈ 0.49 * Hs^2 * Tp (kW/m)
@@ -61,4 +65,3 @@ export class ScoringService {
     return strategy.calculateScore(conditions);
   }
 }
-

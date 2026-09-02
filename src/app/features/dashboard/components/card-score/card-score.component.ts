@@ -36,6 +36,7 @@ export class CardScoreComponent {
     const sp = (this.selectedSpecies() || '').toUpperCase();
     if (sp.includes('ROBALIZA')) return 'assets/robalizas.svg';
     if (sp.includes('AGULLA')) return 'assets/agullas.svg';
+    if (sp.includes('XARDA')) return 'assets/xarda.svg';
     return 'assets/sargos.svg';
   }
 
@@ -44,6 +45,7 @@ export class CardScoreComponent {
     const sp = (this.selectedSpecies() || '').toUpperCase();
     if (sp.includes('ROBALIZA')) return this.forecast()?.scoreRobaliza || 0;
     if (sp.includes('AGULLA')) return this.forecast()?.scoreAgullas || 0;
+    if (sp.includes('XARDA')) return this.forecast()?.scoreXardas || 0;
     return this.forecast()?.scoreSargos || 0;
   }
 

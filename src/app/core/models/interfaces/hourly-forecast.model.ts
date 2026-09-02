@@ -8,10 +8,9 @@ export interface HourlyForecast {
   scoreSargos: number;
   scoreRobaliza: number;
   scoreAgullas: number;
+  scoreXardas: number;
   seaTemperature: number;
   temperature: number;
   tideHeight?: number;
   isTideRising?: boolean;
 }
-
-

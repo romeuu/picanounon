@@ -127,6 +127,8 @@ export class DashboardComponent {
         return forecast.scoreRobaliza;
       case TargetSpecies.AGULLAS:
         return forecast.scoreAgullas;
+      case TargetSpecies.XARDA:
+        return forecast.scoreXardas;
     }
   }
 

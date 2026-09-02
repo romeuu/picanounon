@@ -184,6 +184,10 @@ export class ForecastService {
             conditions,
             TargetSpecies.AGULLAS,
           );
+          const xardaRes = this._scoringService.calculateScore(
+            conditions,
+            TargetSpecies.XARDA,
+          );
 
           result.push({
             time: rawTime.substring(11, 16),
@@ -195,6 +199,7 @@ export class ForecastService {
             scoreSargos: sargoRes.score,
             scoreRobaliza: robalizaRes.score,
             scoreAgullas: agullaRes.score,
+            scoreXardas: xardaRes.score,
             seaTemperature: conditions.waterTemperature,
             temperature: conditions.temperature,
             tideHeight,
