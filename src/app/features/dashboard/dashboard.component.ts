@@ -14,6 +14,7 @@ import { DaySelectorComponent } from '../../shared/components/day-selector/day-s
 import { FishSelectorComponent } from '../../shared/components/fish-selector/fish-selector.component';
 import { PortSelectorComponent } from '../../shared/components/port-selector/port-selector.component';
 import { ForecastService } from '../../shared/services/forecast.service';
+import { isToday } from '../../shared/utils/date-utils';
 import { CardScoreComponent } from './components/card-score/card-score.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
 import { ScoreHourlyComponent } from './components/score-hourly/score-hourly.component';
@@ -50,15 +51,23 @@ export class DashboardComponent {
   selectedSpecies = model<TargetSpecies>(TargetSpecies.SARGOS);
   selectedPort = computed(() => this._portService.selectedPort());
   hourlyForecast = computed(() => this._forecastService.hourlyForecast());
+  todayForecast = computed(() => this._forecastService.currentForecast());
   isLoading = computed(() => this._forecastService.isLoading());
 
   isToday = computed<boolean>(() => {
     const selected = this.selectedDate();
-    const now = new Date();
+    return isToday(selected);
+  });
+
+  todaysForecast = computed<HourlyForecast | null>(() => {
+    const list = this.todayForecast();
+    if (!list || list.length === 0) return null;
+
+    const currentHourStr = String(new Date().getHours()).padStart(2, '0');
     return (
-      selected.getFullYear() === now.getFullYear() &&
-      selected.getMonth() === now.getMonth() &&
-      selected.getDate() === now.getDate()
+      list.find((item) => item.time.startsWith(currentHourStr)) ??
+      list[0] ??
+      null
     );
   });
 

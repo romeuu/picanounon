@@ -24,7 +24,7 @@
         ALTURA MAREA
       </h3>
       <p class="text-white text-xl font-bold mt-1">
-        {{ tideStatus()?.currentHeight }} m
+        {{ tideStatus()?.currentHeight ?? forecast()?.tideHeight }} m
       </p>
     </div>
 
@@ -52,7 +52,12 @@
         ESTADO MAREA
       </h3>
       <p class="text-white text-xl font-bold mt-1">
-        {{ tideStatus()?.status }}
+        {{
+          tideStatus()?.status ??
+            (forecast()?.isTideRising !== undefined
+              ? (forecast()?.isTideRising ? "SUBINDO" : "BAIXANDO")
+              : "—")
+        }}
       </p>
     </div>
   </div>

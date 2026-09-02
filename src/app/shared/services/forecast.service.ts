@@ -7,6 +7,7 @@ import { HourlyForecast } from '../../core/models/interfaces/hourly-forecast.mod
 import { MarineConditions } from '../../core/models/interfaces/marine-conditions.model';
 import { TideResponse } from '../../core/models/interfaces/meteo-galicia.model';
 import { Port } from '../../core/models/interfaces/port';
+import { isToday } from '../utils/date-utils';
 import { MarineWeatherService } from './marine-weather.service';
 import { ScoringService } from './scoring.service';
 import { TideService } from './tide.service';
@@ -20,6 +21,7 @@ export class ForecastService {
   private destroy$ = inject(DestroyRef);
 
   readonly hourlyForecast = signal<HourlyForecast[]>([]);
+  readonly currentForecast = signal<HourlyForecast[]>([]);
   readonly isLoading = signal<boolean>(false);
   readonly error = signal<string | null>(null);
 
@@ -198,6 +200,10 @@ export class ForecastService {
             tideHeight,
             isTideRising,
           });
+        }
+
+        if (targetDate && isToday(targetDate)) {
+          this.currentForecast.set(result);
         }
 
         this.hourlyForecast.set(result);

@@ -57,9 +57,15 @@ export class TideService {
           throw new Error('Non hai datos de marea dispoñibles para este porto');
         }
         this.currentTides.set(combined);
-        this.currentTideStatus.set(
-          this.calculateCurrentDataTide(combined, dateObj),
-        );
+
+        const isTodayDate =
+          dateObj.getFullYear() === today.getFullYear() &&
+          dateObj.getMonth() === today.getMonth() &&
+          dateObj.getDate() === today.getDate();
+
+        if (isTodayDate || !this.currentTideStatus()) {
+          this.currentTideStatus.set(this.calculateCurrentDataTide(combined));
+        }
         return combined;
       }),
     );
