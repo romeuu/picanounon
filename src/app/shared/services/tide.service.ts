@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { forkJoin, Observable, map } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 import {
   CurrentTideStatus,
   TideResponse,
@@ -23,27 +23,43 @@ export class TideService {
 
     const [y, m, d] = targetDate.split('-').map(Number);
     const dateObj = new Date(y, m - 1, d);
+
+    const prevDayObj = new Date(dateObj);
+    prevDayObj.setDate(prevDayObj.getDate() - 1);
+    const prevDateStr = this.formatDateToLocalIso(prevDayObj);
+
     const nextDayObj = new Date(dateObj);
     nextDayObj.setDate(nextDayObj.getDate() + 1);
     const nextDateStr = this.formatDateToLocalIso(nextDayObj);
 
+    const prevDayUrl = `${this.API_URL}/port/${id}?date=${prevDateStr}`;
     const currentDayUrl = `${this.API_URL}/port/${id}?date=${targetDate}`;
     const nextDayUrl = `${this.API_URL}/port/${id}?date=${nextDateStr}`;
 
     return forkJoin([
-      this.http.get<ApiResponse<TideResponse>>(currentDayUrl),
-      this.http.get<ApiResponse<TideResponse>>(nextDayUrl),
+      this.http
+        .get<ApiResponse<TideResponse>>(prevDayUrl)
+        .pipe(catchError(() => of({ data: [] } as any))),
+      this.http
+        .get<ApiResponse<TideResponse>>(currentDayUrl)
+        .pipe(catchError(() => of({ data: [] } as any))),
+      this.http
+        .get<ApiResponse<TideResponse>>(nextDayUrl)
+        .pipe(catchError(() => of({ data: [] } as any))),
     ]).pipe(
-      map(([resToday, resNextDay]) => {
+      map(([resPrev, resToday, resNextDay]) => {
+        const prevTides = resPrev?.data ?? [];
         const todayTides = resToday?.data ?? [];
         const nextDayTides = resNextDay?.data ?? [];
-        const combined = [...todayTides, ...nextDayTides];
+        const combined = [...prevTides, ...todayTides, ...nextDayTides];
 
         if (combined.length === 0) {
           throw new Error('Non hai datos de marea dispoñibles para este porto');
         }
         this.currentTides.set(combined);
-        this.currentTideStatus.set(this.calculateCurrentDataTide(combined, dateObj));
+        this.currentTideStatus.set(
+          this.calculateCurrentDataTide(combined, dateObj),
+        );
         return combined;
       }),
     );
@@ -128,17 +144,13 @@ export class TideService {
         ? Math.min(Math.max((nowMs - prevMs) / (nextMs - prevMs), 0), 1)
         : 0;
 
-    const response = {
+    return {
       currentHeight,
       status,
       previousTide,
       nextTide,
       progressPercentage: Math.round(progress * 100),
     };
-
-    console.log(response);
-
-    return response;
   }
 
   calcularAlturaMareaActual(

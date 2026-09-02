@@ -5,6 +5,7 @@ import { TargetSpecies } from '../../core/models/enums/species.enum';
 import { TidePhase } from '../../core/models/enums/tide-phase.enum';
 import { HourlyForecast } from '../../core/models/interfaces/hourly-forecast.model';
 import { MarineConditions } from '../../core/models/interfaces/marine-conditions.model';
+import { TideResponse } from '../../core/models/interfaces/meteo-galicia.model';
 import { Port } from '../../core/models/interfaces/port';
 import { MarineWeatherService } from './marine-weather.service';
 import { ScoringService } from './scoring.service';
@@ -37,7 +38,7 @@ export class ForecastService {
     }).subscribe({
       next: ({ weather: data, tides }) => {
         const result: HourlyForecast[] = [];
-        
+
         // Atopar todos os índices de previsión que coinciden coa data seleccionada
         const matchingIndices: number[] = [];
         for (let i = 0; i < data.time.length; i++) {
@@ -50,7 +51,10 @@ export class ForecastService {
         const indicesToProcess =
           matchingIndices.length > 0
             ? matchingIndices
-            : Array.from({ length: Math.min(24, data.time.length) }, (_, i) => i);
+            : Array.from(
+                { length: Math.min(24, data.time.length) },
+                (_, i) => i,
+              );
 
         for (const i of indicesToProcess) {
           const rawTime = data.time[i];
@@ -58,8 +62,8 @@ export class ForecastService {
 
           // Determinar a fase de marea cos datos reais de marea se están dispoñibles
           let tidePhase = TidePhase.ENCHENTE;
-          let tideHeight: number | undefined;
-          let isTideRising: boolean | undefined;
+          let tideHeight = 2.0;
+          let isTideRising = true;
 
           if (tides && tides.length > 0) {
             // Atopar a marea máis próxima antes e despois do tempo actual da hora
@@ -73,44 +77,59 @@ export class ForecastService {
               (t) => new Date(t.tideDateTime).getTime() > itemMs,
             );
 
+            let prevTide: TideResponse;
+            let nextTide: TideResponse;
+
             if (nextIdx > 0) {
-              const prevTide = sortedTides[nextIdx - 1];
-              const nextTide = sortedTides[nextIdx];
-              isTideRising = nextTide.height > prevTide.height;
-              tideHeight = this._tideService.calcularAlturaMareaActual(
-                prevTide,
-                nextTide,
-                dateObj,
-              );
+              prevTide = sortedTides[nextIdx - 1];
+              nextTide = sortedTides[nextIdx];
+            } else if (nextIdx === 0) {
+              // Estamos antes do primeiro evento rexistrado
+              prevTide = sortedTides[0];
+              nextTide = sortedTides[1] ?? sortedTides[0];
+            } else {
+              // Estamos despois do último evento rexistrado
+              prevTide =
+                sortedTides[sortedTides.length - 2] ??
+                sortedTides[sortedTides.length - 1];
+              nextTide = sortedTides[sortedTides.length - 1];
+            }
 
-              // Se falta menos de 45 min para un pico de marea, consideramos ese pico
-              const diffPrevMinutes =
-                Math.abs(itemMs - new Date(prevTide.tideDateTime).getTime()) /
-                60000;
-              const diffNextMinutes =
-                Math.abs(new Date(nextTide.tideDateTime).getTime() - itemMs) /
-                60000;
+            isTideRising = nextTide.height > prevTide.height;
+            tideHeight = this._tideService.calcularAlturaMareaActual(
+              prevTide,
+              nextTide,
+              dateObj,
+            );
 
-              if (diffPrevMinutes <= 45) {
-                tidePhase = prevTide.type.toLowerCase().includes('plea')
-                  ? TidePhase.PREAMAR
-                  : TidePhase.BAIXAMAR;
-              } else if (diffNextMinutes <= 45) {
-                tidePhase = nextTide.type.toLowerCase().includes('plea')
-                  ? TidePhase.PREAMAR
-                  : TidePhase.BAIXAMAR;
-              } else {
-                tidePhase = isTideRising
-                  ? TidePhase.ENCHENTE
-                  : TidePhase.MINGUANTE;
-              }
+            // Se falta menos de 45 min para un pico de marea, consideramos ese pico
+            const diffPrevMinutes =
+              Math.abs(itemMs - new Date(prevTide.tideDateTime).getTime()) /
+              60000;
+            const diffNextMinutes =
+              Math.abs(new Date(nextTide.tideDateTime).getTime() - itemMs) /
+              60000;
+
+            if (diffPrevMinutes <= 45) {
+              tidePhase = prevTide.type.toLowerCase().includes('plea')
+                ? TidePhase.PREAMAR
+                : TidePhase.BAIXAMAR;
+            } else if (diffNextMinutes <= 45) {
+              tidePhase = nextTide.type.toLowerCase().includes('plea')
+                ? TidePhase.PREAMAR
+                : TidePhase.BAIXAMAR;
+            } else {
+              tidePhase = isTideRising
+                ? TidePhase.ENCHENTE
+                : TidePhase.MINGUANTE;
             }
           } else {
-            // Fallback se non hai datos de mareas
+            // Fallback se non hai datos de mareas da API
             const hourNum = dateObj.getHours();
             isTideRising = hourNum % 12 < 6;
             tidePhase =
               hourNum % 12 < 6 ? TidePhase.ENCHENTE : TidePhase.MINGUANTE;
+            tideHeight = 2.0;
           }
 
           // Cálculo dinámico de momento crepuscular (±60 min arredor de amencer e solpor)
