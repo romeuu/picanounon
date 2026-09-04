@@ -1,35 +1,44 @@
 <div class="mt-5">
+  <!-- Selector de Porto e Especie de pesca -->
   <app-port-selector></app-port-selector>
-  <div class="mt-5">
-    <app-day-selector (selection)="onDaySelected($event)"></app-day-selector>
+  <div class="mt-4">
+    <app-fish-selector [(speciesSelected)]="selectedSpecies"></app-fish-selector>
   </div>
-  <app-fish-selector [(speciesSelected)]="selectedSpecies"></app-fish-selector>
+
+  <!-- Estado Actual en Directo (Hoxe) -->
   <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch mt-5">
     <div class="md:col-span-3">
       <app-card-score
         [selectedSpecies]="selectedSpecies()"
-        [forecast]="currentForecast()"
+        [forecast]="todaysForecast()"
       ></app-card-score>
     </div>
 
     <div class="md:col-span-6">
       <app-info-card
-        [forecast]="currentForecast()"
+        [forecast]="todaysForecast()"
         [port]="selectedPort()"
       ></app-info-card>
     </div>
 
     <div class="md:col-span-3">
       <app-temperature-card
-        [forecast]="currentForecast()"
+        [forecast]="todaysForecast()"
       ></app-temperature-card>
     </div>
   </div>
 
-  <div class="mt-5">
+  <!-- Planificador / Previsión por horas segundo o día seleccionado -->
+  <div class="mt-8 space-y-4">
+    <app-day-selector
+      [daySelected]="selectedDate()"
+      (selection)="onDaySelected($event)"
+    ></app-day-selector>
+
     <app-score-hourly
       [forecasts]="upcomingForecast()"
       [selectedSpecies]="selectedSpecies()"
     ></app-score-hourly>
   </div>
 </div>
+

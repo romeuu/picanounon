@@ -20,6 +20,7 @@ export class FishSelectorComponent {
       label: 'Robaliza',
       icon: 'assets/robalizas.svg',
     },
+    { key: TargetSpecies.XARDA, label: 'Xarda', icon: 'assets/xarda.svg' },
     { key: TargetSpecies.AGULLAS, label: 'Agulla', icon: 'assets/agullas.svg' },
   ];
 
