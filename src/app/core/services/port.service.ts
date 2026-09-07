@@ -29,7 +29,7 @@ export class PortService {
 
   loadPorts(): void {
     this._isLoading.set(true);
-    this.http.get<ApiResponse<Port>>(this.API_URL).subscribe({
+    this.http.get<ApiResponse<Port[]>>(this.API_URL).subscribe({
       next: (response) => {
         this._ports.set(response.data);
         this.initDefaultPort(response.data);

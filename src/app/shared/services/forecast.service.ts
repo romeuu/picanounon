@@ -41,6 +41,8 @@ export class ForecastService {
       next: ({ weather: data, tides }) => {
         const result: HourlyForecast[] = [];
 
+        console.log(data);
+
         // Atopar todos os índices de previsión que coinciden coa data seleccionada
         const matchingIndices: number[] = [];
         for (let i = 0; i < data.time.length; i++) {
