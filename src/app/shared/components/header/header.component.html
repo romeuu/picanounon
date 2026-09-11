@@ -1,14 +1,56 @@
 <!-- Cabeceira Minimalista -->
 <header
-  class="flex items-center justify-between border-b border-neutral-800 pb-4"
+  class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-800 pb-4"
 >
   <div>
-    <h1 class="text-xl font-bold tracking-tight text-white">PICANOUNON.GAL</h1>
-    <p class="text-xs text-neutral-400 uppercase tracking-widest mt-0.5">
-      Predición marítima & mareas
-    </p>
+    <a routerLink="/dashboard" class="group block">
+      <h1 class="text-xl font-bold tracking-tight text-white group-hover:text-orange transition-colors">PICANOUNON.GAL</h1>
+      <p class="text-xs text-neutral-400 uppercase tracking-widest mt-0.5">
+        Predición marítima & mareas
+      </p>
+    </a>
   </div>
-  <div class="flex items-center gap-3">
+
+  <div class="flex items-center flex-wrap gap-2.5">
+    <!-- Estado de Autenticación -->
+    @if (authService.isAuthenticated() && authService.currentUser(); as user) {
+      <div class="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-neutral-900 border border-neutral-800">
+        @if (user.pictureUrl) {
+          <img
+            [src]="user.pictureUrl"
+            [alt]="user.name"
+            referrerpolicy="no-referrer"
+            class="w-5 h-5 rounded-full object-cover border border-neutral-700"
+          />
+        } @else {
+          <div class="w-5 h-5 rounded-full bg-orange/20 text-orange border border-orange/40 flex items-center justify-center text-[10px] font-bold">
+            {{ user.name.charAt(0).toUpperCase() }}
+          </div>
+        }
+        <span class="text-xs text-white font-medium max-w-[120px] truncate" [title]="user.email">
+          {{ user.name }}
+        </span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-400 font-mono">
+          {{ user.provider }}
+        </span>
+        <button
+          type="button"
+          (click)="logout()"
+          class="text-neutral-400 hover:text-red text-xs font-mono pl-1 border-l border-neutral-800 cursor-pointer transition-colors"
+          title="Pechar sesión"
+        >
+          [SAÍR]
+        </button>
+      </div>
+    } @else {
+      <a
+        routerLink="/login"
+        class="px-2.5 py-1.5 rounded border border-orange/40 bg-orange/10 hover:bg-orange/20 text-orange hover:text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer"
+      >
+        <span>🔑 [ENTRAR]</span>
+      </a>
+    }
+
     <!-- Botón Toggle Modo Claro / Oscuro -->
     <button
       type="button"

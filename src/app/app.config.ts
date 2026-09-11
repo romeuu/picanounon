@@ -3,6 +3,7 @@ import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/ht
 import localeEs from '@angular/common/locales/es';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 import { routes } from './app.routes';
 
@@ -11,7 +12,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withXhr(), withInterceptors([loadingInterceptor])),
+    provideHttpClient(withXhr(), withInterceptors([loadingInterceptor, authInterceptor])),
   ],
 };
 

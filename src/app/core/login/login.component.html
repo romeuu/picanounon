@@ -1,0 +1,269 @@
+﻿<div class="max-w-md mx-auto my-6">
+  <app-ui-card title="AUTENTICACIÓN // ACCESO">
+    <div class="space-y-6 pt-1">
+      <!-- Selector de Modo / Pestanas -->
+      <div class="grid grid-cols-2 gap-2 p-1 bg-neutral-900/60 rounded-xl border border-gray-light/20">
+        <button
+          type="button"
+          (click)="switchTab('login')"
+          class="py-2 px-3 text-xs font-bold rounded-lg uppercase tracking-wider transition-all cursor-pointer text-center"
+          [ngClass]="
+            activeTab() === 'login'
+              ? 'bg-orange text-black font-semibold shadow-md'
+              : 'text-gray-light hover:text-white hover:bg-neutral-800/50'
+          "
+        >
+          [ Entrar ]
+        </button>
+        <button
+          type="button"
+          (click)="switchTab('register')"
+          class="py-2 px-3 text-xs font-bold rounded-lg uppercase tracking-wider transition-all cursor-pointer text-center"
+          [ngClass]="
+            activeTab() === 'register'
+              ? 'bg-orange text-black font-semibold shadow-md'
+              : 'text-gray-light hover:text-white hover:bg-neutral-800/50'
+          "
+        >
+          [ Rexistrarse ]
+        </button>
+      </div>
+
+      <!-- Alertas de estado -->
+      @if (errorMessage()) {
+        <div
+          class="p-3 bg-red/10 border border-red/30 rounded-xl text-red text-xs space-y-1 animate-fade-in"
+        >
+          <div class="font-bold uppercase tracking-wider flex items-center gap-1.5">
+            <span>⚠️ ERRO DE ACCESO</span>
+          </div>
+          <p class="text-xs leading-relaxed text-red-200">
+            {{ errorMessage() }}
+          </p>
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div
+          class="p-3 bg-green/10 border border-green/30 rounded-xl text-green text-xs space-y-1 animate-fade-in"
+        >
+          <div class="font-bold uppercase tracking-wider flex items-center gap-1.5">
+            <span>✅ CONFIRMADO</span>
+          </div>
+          <p class="text-xs leading-relaxed text-green-200">
+            {{ successMessage() }}
+          </p>
+        </div>
+      }
+
+      <!-- Acceso Rápido con Google -->
+      <div class="space-y-3">
+        <div class="text-[11px] uppercase tracking-widest text-gray-light font-medium text-center">
+          // Acceso cun só clic
+        </div>
+        <div class="flex justify-center min-h-[44px]">
+          <div id="google-btn" #googleBtnContainer class="flex justify-center w-full"></div>
+        </div>
+      </div>
+
+      <!-- Separador Terminal -->
+      <div class="relative flex items-center justify-center">
+        <div class="border-t border-gray-light/20 w-full"></div>
+        <span class="bg-gray px-3 text-[10px] text-gray-light uppercase tracking-widest font-mono">
+          OU CON CREDENCIAIS
+        </span>
+      </div>
+
+      <!-- Formulario 1: Iniciar Sesión (Login) -->
+      @if (activeTab() === 'login') {
+        <form [formGroup]="loginForm" (ngSubmit)="handleLocalLogin()" class="space-y-4">
+          <!-- Campo Email -->
+          <div class="space-y-1.5">
+            <label class="block text-xs uppercase tracking-wider text-gray-light">
+              <span class="text-orange">></span> Correo electrónico
+            </label>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="pescador@exemplo.gal"
+              class="w-full px-3.5 py-2.5 bg-neutral-900/80 border rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-1 transition-colors"
+              [ngClass]="
+                loginForm.controls.email.invalid && loginForm.controls.email.touched
+                  ? 'border-red focus:border-red focus:ring-red'
+                  : 'border-gray-light/30 focus:border-orange focus:ring-orange'
+              "
+            />
+            @if (loginForm.controls.email.invalid && loginForm.controls.email.touched) {
+              <span class="text-[11px] text-red block">
+                Introduce un correo electrónico válido.
+              </span>
+            }
+          </div>
+
+          <!-- Campo Contrasinal -->
+          <div class="space-y-1.5">
+            <label class="block text-xs uppercase tracking-wider text-gray-light">
+              <span class="text-orange">></span> Contrasinal
+            </label>
+            <div class="relative">
+              <input
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="••••••••"
+                class="w-full px-3.5 py-2.5 bg-neutral-900/80 border rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-1 transition-colors pr-10"
+                [ngClass]="
+                  loginForm.controls.password.invalid && loginForm.controls.password.touched
+                    ? 'border-red focus:border-red focus:ring-red'
+                    : 'border-gray-light/30 focus:border-orange focus:ring-orange'
+                "
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-light hover:text-white text-xs cursor-pointer p-1"
+                [title]="showPassword() ? 'Ocultar contrasinal' : 'Amosar contrasinal'"
+              >
+                @if (showPassword()) {
+                  <span>👁️</span>
+                } @else {
+                  <span>🔒</span>
+                }
+              </button>
+            </div>
+            @if (loginForm.controls.password.invalid && loginForm.controls.password.touched) {
+              <span class="text-[11px] text-red block">
+                O contrasinal debe ter polo menos 6 caracteres.
+              </span>
+            }
+          </div>
+
+          <!-- Botón de Envío -->
+          <button
+            type="submit"
+            [disabled]="authService.isLoading()"
+            class="w-full mt-2 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-widest bg-orange text-black hover:bg-orange/90 active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+          >
+            @if (authService.isLoading()) {
+              <span class="inline-block w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
+              <span>Accedendo...</span>
+            } @else {
+              <span>[ INICIAR SESIÓN ]</span>
+            }
+          </button>
+        </form>
+      }
+
+      <!-- Formulario 2: Rexistro -->
+      @if (activeTab() === 'register') {
+        <form [formGroup]="registerForm" (ngSubmit)="handleLocalRegister()" class="space-y-4">
+          <!-- Campo Nome -->
+          <div class="space-y-1.5">
+            <label class="block text-xs uppercase tracking-wider text-gray-light">
+              <span class="text-orange">></span> Nome ou Alcume
+            </label>
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="Manuel de Mera"
+              class="w-full px-3.5 py-2.5 bg-neutral-900/80 border rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-1 transition-colors"
+              [ngClass]="
+                registerForm.controls.name.invalid && registerForm.controls.name.touched
+                  ? 'border-red focus:border-red focus:ring-red'
+                  : 'border-gray-light/30 focus:border-orange focus:ring-orange'
+              "
+            />
+            @if (registerForm.controls.name.invalid && registerForm.controls.name.touched) {
+              <span class="text-[11px] text-red block">
+                O nome é obrigatorio (mínimo 2 caracteres).
+              </span>
+            }
+          </div>
+
+          <!-- Campo Email -->
+          <div class="space-y-1.5">
+            <label class="block text-xs uppercase tracking-wider text-gray-light">
+              <span class="text-orange">></span> Correo electrónico
+            </label>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="pescador@exemplo.gal"
+              class="w-full px-3.5 py-2.5 bg-neutral-900/80 border rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-1 transition-colors"
+              [ngClass]="
+                registerForm.controls.email.invalid && registerForm.controls.email.touched
+                  ? 'border-red focus:border-red focus:ring-red'
+                  : 'border-gray-light/30 focus:border-orange focus:ring-orange'
+              "
+            />
+            @if (registerForm.controls.email.invalid && registerForm.controls.email.touched) {
+              <span class="text-[11px] text-red block">
+                Introduce un correo electrónico válido.
+              </span>
+            }
+          </div>
+
+          <!-- Campo Contrasinal -->
+          <div class="space-y-1.5">
+            <label class="block text-xs uppercase tracking-wider text-gray-light">
+              <span class="text-orange">></span> Contrasinal
+            </label>
+            <div class="relative">
+              <input
+                [type]="showRegisterPassword() ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Mínimo 6 caracteres"
+                class="w-full px-3.5 py-2.5 bg-neutral-900/80 border rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-1 transition-colors pr-10"
+                [ngClass]="
+                  registerForm.controls.password.invalid && registerForm.controls.password.touched
+                    ? 'border-red focus:border-red focus:ring-red'
+                    : 'border-gray-light/30 focus:border-orange focus:ring-orange'
+                "
+              />
+              <button
+                type="button"
+                (click)="toggleRegisterPasswordVisibility()"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-light hover:text-white text-xs cursor-pointer p-1"
+                [title]="showRegisterPassword() ? 'Ocultar contrasinal' : 'Amosar contrasinal'"
+              >
+                @if (showRegisterPassword()) {
+                  <span>👁️</span>
+                } @else {
+                  <span>🔒</span>
+                }
+              </button>
+            </div>
+            @if (registerForm.controls.password.invalid && registerForm.controls.password.touched) {
+              <span class="text-[11px] text-red block">
+                O contrasinal debe ter polo menos 6 caracteres.
+              </span>
+            }
+          </div>
+
+          <!-- Botón de Envío -->
+          <button
+            type="submit"
+            [disabled]="authService.isLoading()"
+            class="w-full mt-2 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-widest bg-orange text-black hover:bg-orange/90 active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+          >
+            @if (authService.isLoading()) {
+              <span class="inline-block w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
+              <span>Creando conta...</span>
+            } @else {
+              <span>[ CREAR CONTA ]</span>
+            }
+          </button>
+        </form>
+      }
+
+      <!-- Navegación ao Dashboard -->
+      <div class="pt-2 text-center border-t border-gray-light/20">
+        <a
+          routerLink="/dashboard"
+          class="text-xs text-gray-light hover:text-white transition-colors inline-flex items-center gap-1 font-mono uppercase tracking-wider"
+        >
+          ← Volver á predición marítima
+        </a>
+      </div>
+    </div>
+  </app-ui-card>
+</div>
