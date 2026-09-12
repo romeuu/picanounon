@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 import {
   CurrentTideStatus,
+  TideDayResponse,
   TideResponse,
 } from '../../core/models/interfaces/meteo-galicia.model';
 import { ApiResponse } from '../models/api-response.model';
@@ -16,6 +17,13 @@ export class TideService {
 
   readonly currentTides = signal<TideResponse[]>([]);
   readonly currentTideStatus = signal<CurrentTideStatus | null>(null);
+  readonly currentTideDay = signal<TideDayResponse | null>(null);
+  readonly dailyCoefficient = computed(
+    () => this.currentTideDay()?.dailyCoefficient ?? null,
+  );
+  readonly cycleCoefficients = computed(
+    () => this.currentTideDay()?.cycleCoefficient ?? [],
+  );
 
   getTidesByPort(id: number, dateStr?: string): Observable<TideResponse[]> {
     const today = new Date();
@@ -38,20 +46,25 @@ export class TideService {
 
     return forkJoin([
       this.http
-        .get<ApiResponse<TideResponse>>(prevDayUrl)
+        .get<ApiResponse<TideDayResponse>>(prevDayUrl)
         .pipe(catchError(() => of({ data: [] } as any))),
       this.http
-        .get<ApiResponse<TideResponse>>(currentDayUrl)
+        .get<ApiResponse<TideDayResponse>>(currentDayUrl)
         .pipe(catchError(() => of({ data: [] } as any))),
       this.http
-        .get<ApiResponse<TideResponse>>(nextDayUrl)
+        .get<ApiResponse<TideDayResponse>>(nextDayUrl)
         .pipe(catchError(() => of({ data: [] } as any))),
     ]).pipe(
       map(([resPrev, resToday, resNextDay]) => {
-        const prevTides = resPrev?.data ?? [];
-        const todayTides = resToday?.data ?? [];
-        const nextDayTides = resNextDay?.data ?? [];
+        const prevTides = resPrev?.data.tides ?? [];
+        const todayData = resToday?.data;
+        const todayTides = resToday?.data.tides ?? [];
+        const nextDayTides = resNextDay?.data.tides ?? [];
         const combined = [...prevTides, ...todayTides, ...nextDayTides];
+
+        if (todayData) {
+          this.currentTideDay.set(todayData);
+        }
 
         if (combined.length === 0) {
           throw new Error('Non hai datos de marea dispoñibles para este porto');
