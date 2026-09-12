@@ -109,8 +109,9 @@ export class DashboardComponent {
     effect(() => {
       const port = this.selectedPort();
       const date = this.selectedDate();
+      const species = this.selectedSpecies();
       if (port) {
-        this._forecastService.loadForecastForPort(port, date);
+        this._forecastService.loadForecastForPort(port, date, species);
       }
     });
   }

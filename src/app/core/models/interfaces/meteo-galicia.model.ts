@@ -27,6 +27,12 @@ export interface TideResponse {
   height: number;
 }
 
+export interface TideDayResponse {
+  tides: TideResponse[];
+  dailyCoefficient: number;
+  cycleCoefficient: number[];
+}
+
 export interface CurrentTideStatus {
   currentHeight: number;
   status: 'SUBINDO' | 'BAIXANDO';
